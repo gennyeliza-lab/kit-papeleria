@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kit Papelería Creations Dearie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+html{color-scheme:light dark}
+body{margin:0}
+[hidden]{display:none!important}
+
+/* Concepto: hoja de trabajo sobre tapete de corte. Entradas a la izquierda, resultado sobre un tapete verde con cuadrícula y regla. */
+:root{
+  --bg:#FFE9BA; --surface:#FFF6E0; --field:#FFFBEE; --ink:#1B1B1B; --muted:#5F573F; --line:#E5CF9C;
+  --accent:#DF974B; --accent-ink:#1B1B1B; --accent-soft:#F8D7A0; --accent-text:#8F4F10;
+  --bar:#7AA4A0; --bar-fg:#12201F;
+  --good:#17724F; --warn:#9A5206; --bad:#B3321F;
+  --mat-bg:#3F6B68; --mat-grid:rgba(255,255,255,.08); --mat-fg:#FFF3D6; --mat-muted:#C9E0D8; --mat-line:rgba(255,255,255,.2);
+  --seg-mat:#F2C75C; --seg-time:#9CCBE0; --seg-over:#E68D85; --seg-fee:#DF974B; --seg-profit:#B5DB9C;
+  --f-display:"Outfit","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#172120; --surface:#213231; --field:#1A2928; --ink:#FFF1D0; --muted:#BDB79F; --line:#375452;
+  --accent:#E9A55C; --accent-ink:#1B1B1B; --accent-soft:#4A3920; --accent-text:#F2B876;
+  --bar:#3F6B68; --bar-fg:#FFF3D6;
+  --good:#6FD6A6; --warn:#F0B35A; --bad:#FF9482;
+  --mat-bg:#2C4F4C; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#172120; --surface:#213231; --field:#1A2928; --ink:#FFF1D0; --muted:#BDB79F; --line:#375452;
+  --accent:#E9A55C; --accent-ink:#1B1B1B; --accent-soft:#4A3920; --accent-text:#F2B876;
+  --bar:#3F6B68; --bar-fg:#FFF3D6;
+  --good:#6FD6A6; --warn:#F0B35A; --bad:#FF9482;
+  --mat-bg:#2C4F4C; color-scheme:dark;}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--f-body);
+  padding-block:28px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;line-height:1.1}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button{font:inherit;cursor:pointer}
+
+/* Encabezado */
+.brandbar{background:var(--bar);color:var(--bar-fg);border-radius:12px;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font:600 15px var(--f-display);letter-spacing:.08em}
+.brandbar span{font:500 12px var(--f-mono);letter-spacing:.1em;text-transform:uppercase}
+.eyebrow{font:500 12px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-text)}
+header h1{font-size:clamp(30px,5vw,48px);font-weight:800;letter-spacing:-.02em;margin:6px 0 10px}
+header p.lead{max-width:62ch;color:var(--muted);font-size:16px}
+.starters{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;align-items:center}
+.starters .lbl{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);width:100%}
+.chip{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:500;display:inline-flex;gap:8px;align-items:center}
+.chip small{font:400 12px var(--f-mono);color:var(--muted)}
+.chip:hover{border-color:var(--accent)}
+.chip.active{border-color:var(--accent);background:var(--accent-soft)}
+.chip .x{border:0;background:none;color:var(--muted);padding:0 0 0 4px;font-size:16px;line-height:1}
+.chip .x:hover{color:var(--bad)}
+
+/* Distribución */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:24px;align-items:start}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.card h2{font-size:20px;font-weight:700;display:flex;gap:10px;align-items:baseline}
+.card h2 .n{font:500 12px var(--f-mono);color:var(--accent-text);border:1px solid var(--accent-text);border-radius:6px;padding:1px 7px}
+.card .sub{color:var(--muted);font-size:14px;margin-top:-8px;max-width:60ch}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+
+/* Campos */
+.f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.f label,.lab{font-weight:500;font-size:13.5px}
+.hint{color:var(--muted);font-size:12.5px;line-height:1.35}
+.in{display:flex;align-items:center;background:var(--field);border:1px solid var(--line);border-radius:8px;padding:0 10px;gap:6px;min-width:0}
+.in:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.in input,.in select{flex:1;min-width:0;width:100%;border:0;background:transparent;color:var(--ink);font:500 15px var(--f-mono);padding:9px 0;outline:0}
+.in input[type=text]{font-family:var(--f-body);font-weight:500}
+.in select{font-family:var(--f-body)}
+.sym,.suf{color:var(--muted);font:400 13px var(--f-mono);white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.check input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px}
+
+/* Materiales */
+.mats{display:flex;flex-direction:column;gap:10px}
+.mat-row{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr)) 72px 32px;gap:10px;align-items:end;padding:12px;border:1px dashed var(--line);border-radius:10px}
+.mat-row .cost{font:500 14px var(--f-mono);padding:10px 0;text-align:right;min-width:0}
+.mat-row .cost small{display:block;color:var(--muted);font-size:11px;font-weight:400}
+.mat-row .rm{border:0;background:none;color:var(--muted);font-size:20px;padding:8px}
+.mat-row .rm:hover{color:var(--bad)}
+.mat-row .f label{font-size:12px;color:var(--muted)}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:9px 14px;font-weight:500}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.ghost{background:transparent}
+.row-actions{display:flex;gap:10px;flex-wrap:wrap}
+.picks{display:flex;flex-wrap:wrap;gap:8px}
+.picks .chip{font-size:13.5px;padding:7px 12px}
+
+/* Tapete de resultados */
+.results{position:sticky;top:max(16px,env(safe-area-inset-top,0px));display:flex;flex-direction:column;gap:16px;min-width:0}
+.mat{background-color:var(--mat-bg);background-image:linear-gradient(var(--mat-grid) 1px,transparent 1px),linear-gradient(90deg,var(--mat-grid) 1px,transparent 1px);background-size:24px 24px;color:var(--mat-fg);border-radius:14px;padding:38px 20px 20px;position:relative;display:flex;flex-direction:column;gap:18px;overflow:hidden;min-width:0}
+.mat::before{content:"";position:absolute;inset:0 0 auto 0;height:16px;background:repeating-linear-gradient(90deg,var(--mat-muted) 0 1px,transparent 1px 12px),repeating-linear-gradient(90deg,var(--mat-muted) 0 1px,transparent 1px 60px);background-size:100% 6px,100% 12px;background-repeat:no-repeat;background-position:0 0,0 0;opacity:.7}
+.mat .k{font:500 11.5px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mat-muted)}
+.price{font:800 clamp(46px,7vw,64px)/1 var(--f-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.price-sub{color:var(--mat-muted);font-size:13.5px;margin-top:6px}
+.pname{font:600 17px var(--f-display);margin-top:2px}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--mat-line);border:1px solid var(--mat-line);border-radius:10px;overflow:hidden}
+.metric{background:var(--mat-bg);padding:12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.metric b{font:500 20px var(--f-mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.metric span{font-size:12px;color:var(--mat-muted);line-height:1.3}
+.bar{display:flex;height:16px;border-radius:5px;overflow:hidden;background:var(--mat-line)}
+.bar i{display:block;height:100%;min-width:0;transition:width .25s}
+.legend{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.legend div{display:flex;align-items:center;gap:8px}
+.legend .dot{width:10px;height:10px;border-radius:3px;flex:none}
+.legend .nm{flex:1}
+.legend .vl{font:400 13px var(--f-mono);font-variant-numeric:tabular-nums}
+.legend .pc{font:400 12px var(--f-mono);color:var(--mat-muted);width:42px;text-align:right}
+.alert{border-radius:10px;padding:10px 12px;font-size:13.5px;border:1px solid var(--line);background:var(--surface)}
+.alert.bad{border-color:var(--bad);color:var(--bad)}
+.alert.good{border-color:var(--good);color:var(--good)}
+.alert.warn{border-color:var(--warn);color:var(--warn)}
+.mat .alert{background:rgba(0,0,0,.25);border-color:var(--mat-line);color:var(--mat-fg)}
+.mat .alert.bad{border-color:#FF8A7A;color:#FFC2B9}
+.mat .alert.good{border-color:var(--seg-profit);color:#C9F5DA}
+.mat .alert.warn{border-color:var(--seg-mat);color:#FBE7A8}
+.scen{display:flex;flex-direction:column;gap:6px;font-size:14px;border-top:1px solid var(--mat-line);padding-top:14px}
+.scen div{display:flex;justify-content:space-between;gap:12px}
+.scen b{font:500 14px var(--f-mono);font-variant-numeric:tabular-nums;text-align:right}
+.mat .btn{background:rgba(255,255,255,.1);border-color:var(--mat-line);color:var(--mat-fg)}
+.mat .btn:hover{border-color:var(--mat-fg)}
+#summaryBox{width:100%;min-height:150px;font:400 12.5px/1.45 var(--f-mono);border-radius:8px;border:1px solid var(--mat-line);background:rgba(0,0,0,.3);color:var(--mat-fg);padding:10px}
+
+/* Tablas y texto inferior */
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:520px;font-variant-numeric:tabular-nums}
+th{font:500 11.5px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:right;font:400 14px var(--f-mono)}
+th:first-child,td:first-child{text-align:left}
+td.neg{color:var(--bad)}
+td.pos{color:var(--good)}
+.formula{font:500 14px/1.7 var(--f-mono);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-wrap:anywhere}
+.formula .live{color:var(--accent-text);display:block;margin-top:6px}
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.step{border-left:3px solid var(--accent);padding:2px 0 2px 14px}
+.step h3{font-size:16px;margin-bottom:4px}
+.step p{color:var(--muted);font-size:14px}
+.errs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.err{border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px}
+.err b{display:block;margin-bottom:2px}
+.err.ok{border-color:var(--good)}
+.err .t{color:var(--muted)}
+footer{color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:6px}
+
+/* Barra móvil */
+.dock{display:none}
+@media (max-width:920px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .results{position:static;order:-1}
+  .steps,.errs{grid-template-columns:minmax(0,1fr)}
+  .dock{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);
+    padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));justify-content:space-between;align-items:center;gap:12px}
+  .dock .p{font:800 24px var(--f-display);font-variant-numeric:tabular-nums}
+  .dock .g{font:400 12px var(--f-mono);color:var(--muted);text-align:right}
+  body{padding-bottom:84px}
+}
+@media (max-width:640px){
+  .grid2,.grid3{grid-template-columns:minmax(0,1fr)}
+  .mat-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mat-row .f:first-child{grid-column:1/-1}
+  .mat-row .cost{text-align:left;grid-column:span 2}
+  .mat-row .rm{justify-self:end}
+}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+html{color-scheme:light dark}
+body{margin:0}
+[hidden]{display:none!important}
+
+/* ===== Kit Papelería: capa de la guía ===== */
+:root{--tint:#EAF1EC;--tint-line:#7AA4A0;--quote:#FFF2CC;--rule:#DF974B}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tint:#1D3433;--tint-line:#4F8581;--quote:#2E2B1E}}
+:root[data-theme="dark"]{--tint:#1D3433;--tint-line:#4F8581;--quote:#2E2B1E}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{padding-block:0 40px}
+.topnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px))) 22px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));background:var(--bar);color:var(--bar-fg);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.topnav b{font:700 15px var(--f-display);letter-spacing:.08em}
+.tabs{display:flex;gap:6px}
+.tab{border:1px solid transparent;background:transparent;color:var(--bar-fg);padding:7px 14px;border-radius:999px;font-weight:600}
+.tab:hover{border-color:var(--bar-fg)}
+.tab[aria-selected="true"]{background:var(--bar-fg);color:var(--bar)}
+.g{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.g h1{font-size:clamp(34px,6vw,52px);font-weight:800;letter-spacing:-.02em;margin:6px 0 14px}
+.g h2{font-size:clamp(26px,4vw,34px);font-weight:800;letter-spacing:-.01em;margin-bottom:10px}
+.g h3{font-size:19px;font-weight:700;margin:22px 0 6px;color:var(--accent-text)}
+.g h4{font:700 16px var(--f-display);margin:0 0 3px}
+.g p,.g li{max-width:68ch}
+.g p{margin:0 0 12px}
+.g .lede{font-size:18px;line-height:1.55;margin-bottom:14px}
+.g .small{font-size:13.5px;color:var(--muted)}
+.g .rule{height:5px;width:100%;background:var(--rule);border-radius:3px;margin-bottom:18px}
+.g ul{margin:0 0 14px;padding-left:22px;display:flex;flex-direction:column;gap:7px}
+.g .chap{scroll-margin-top:72px;border-top:1px solid var(--line);padding-top:34px;margin-top:26px}
+.g .hero{padding-top:6px}
+.g h3[id]{scroll-margin-top:72px}
+.pill{display:inline-block;background:var(--accent);color:var(--accent-ink);font-weight:700;border-radius:999px;padding:10px 20px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+a.btn{text-decoration:none;display:inline-block}
+.g a{color:var(--accent-text)}
+a.btn.primary{color:var(--accent-ink)}
+.co{border-radius:14px;padding:18px 20px;margin:12px 0 16px;border:1px solid var(--line);background:var(--surface)}
+.co h3{margin:0 0 6px}
+.co p{margin:0}
+.co p+p{margin-top:10px}
+.co.warm{background:var(--accent-soft);border-color:var(--accent)}
+.co.tint{background:var(--tint);border-color:var(--tint-line)}
+.co.teal{background:var(--bar);color:var(--bar-fg);border-color:var(--bar)}
+.co.teal h3{color:var(--bar-fg)}
+.co.quote{background:var(--quote);border:0;border-left:4px solid var(--accent);border-radius:4px 12px 12px 4px}
+.co ul{margin:0}
+.formula-line{font:700 clamp(15px,2.6vw,19px) var(--f-display);margin:2px 0 10px!important;overflow-wrap:anywhere}
+.stp{list-style:none;margin:6px 0 14px;padding:0;display:flex;flex-direction:column;gap:14px}
+.stp li{display:flex;gap:14px;align-items:flex-start;max-width:70ch}
+.stp li>div{min-width:0}
+.num{flex:none;width:34px;height:34px;border-radius:50%;background:var(--bar);color:var(--bar-fg);display:grid;place-items:center;font:700 15px var(--f-display)}
+.num.alt{background:var(--accent);color:var(--accent-ink)}
+.gt{min-width:460px;width:100%;border-collapse:collapse}
+.gt th{background:var(--bar);color:var(--bar-fg);text-align:left;font:600 13.5px var(--f-body);letter-spacing:0;text-transform:none;padding:10px;border:0}
+.gt th.r,.gt td.r{text-align:right}
+.gt td{text-align:left;font:400 14.5px/1.4 var(--f-body);padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.gt td.r{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.gt tr:nth-child(even) td{background:var(--quote)}
+.gt tr.b td{font-weight:700}
+.gt.sheet tr:nth-child(even) td{background:transparent}
+.gt.sheet td:first-child{width:34%}
+.gt input[type=text]{width:100%;min-width:90px;border:0;border-bottom:1px solid var(--accent);background:transparent;color:var(--ink);font:500 14.5px var(--f-body);padding:6px 2px;border-radius:0}
+.gt input[type=text]:focus{outline:0;background:var(--accent-soft)}
+.gt td.chk{text-align:center;width:60px}
+.gt input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
+.mp{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mp input{flex:1;min-width:160px;border:0;border-bottom:1px solid var(--accent);background:transparent;color:var(--ink);font:500 15px var(--f-body);padding:6px 2px}
+.lines{display:flex;flex-direction:column;gap:6px;max-width:68ch}
+.lines input{border:0;border-bottom:1px solid var(--accent);background:transparent;color:var(--ink);font:500 15px var(--f-body);padding:8px 2px}
+.co .scroll{margin:8px 0}
+#view-calc .wrap{margin-top:0}
+.results{top:calc(env(safe-area-inset-top,0px) + 66px)}
+.dock{display:none!important}
+@media (max-width:920px){
+  body.calc-on .dock{display:flex!important}
+  body.calc-on{padding-bottom:84px}
+}
+</style>
+</head>
+<body>
+<nav class="topnav" aria-label="Secciones"><b>CREATIONS DEARIE</b><div class="tabs" role="tablist">
+<button class="tab" type="button" role="tab" id="tab-guia" data-view="guia" aria-selected="true">Guía</button>
+<button class="tab" type="button" role="tab" id="tab-calc" data-view="calc" aria-selected="false">Calculador</button></div></nav>
+<main>
+<div id="view-guia"><div class="g"><section class="hero" id="inicio">
+<p class="eyebrow">Kit virtual, Creations Dearie</p>
+<h1>Kit Papelería: aprende a dar los precios</h1>
+<div class="rule"></div>
+<p class="lede">La guía completa para dejar de adivinar cuánto cobrar y empezar a poner precios con ganancia real, sin complicarte con los números.</p>
+<p>Si haces papelería personalizada, seguro te ha pasado. La clienta pide una cotización, tú das un precio rápido para no perder la venta, y al terminar el pedido descubres que entre material, tiempo y envío casi no ganaste nada. Esta guía resuelve eso paso a paso, con ejemplos de productos reales de papelería para fiestas.</p>
+<div class="co plain"><h3>Qué incluye el kit</h3><p><ul><li><b>La guía:</b> el método completo, explicado en lenguaje simple, capítulo por capítulo.</li><li><b>El calculador de precios:</b> una herramienta fácil de usar donde metes tus costos y te devuelve el precio listo para cobrar.</li><li><b>Ejemplos resueltos:</b> cajitas, toppers, invitaciones y recuerdos, con las cuentas hechas para que copies el criterio, no solo el número.</li><li><b>Hojas para llenar en cada capítulo:</b> al terminar, tu lista de precios queda armada con tus propios números.</li></ul></p></div>
+<p class="pill">Empieza por el capítulo 1 y avanza en orden</p>
+<p class="small">Cada capítulo ataca un error concreto al cobrar. Al final de cada uno hay una hoja corta que se resuelve con el calculador, así la guía y la herramienta se usan juntas.</p>
+<p class="row"><a class="btn primary" href="#cap1">Empezar con el capítulo 1</a> <button type="button" class="btn go" data-goto="calc">Abrir el calculador</button></p>
+</section>
+<section class="chap" id="antes"><p class="eyebrow">Antes de empezar</p><h2>¿Para quién es este kit?</h2>
+<p class="lede">Para papeleras y creadoras de decoración para fiestas que venden cajitas, toppers, invitaciones y paquetes personalizados, en Etsy, en redes o en su comunidad local.</p>
+<p>Es para ti si sientes que trabajas mucho para lo que realmente te queda. Si terminas pedidos cansada y con la duda de si ganaste o solo te moviste. Si das precios distintos por el mismo producto porque cada vez los calculas de memoria. Si te da pena cobrar el diseño, el empaque o el tiempo de mensajes con la clienta.</p>
+<div class="co warm"><h3>No necesitas saber de contabilidad</h3><p>De verdad. Si sabes usar tu teléfono, sabes usar el calculador. La guía evita palabras complicadas a propósito. Cuando un término hace falta, se explica con un ejemplo de fiesta, no con una definición de libro.</p></div>
+<h3>Cómo usar esta guía</h3>
+<ol class="stp"><li><span class="num">1</span><div><b>Lee un capítulo y llena su hoja.</b> No avances con hojas vacías. La hoja es donde el método se vuelve tuyo.</div></li><li><span class="num">2</span><div><b>Usa tus números reales.</b> Tus precios de papel, tu ciudad, tu ritmo de trabajo. Un precio copiado de otra persona no paga tus cuentas.</div></li><li><span class="num">3</span><div><b>Repite las cuentas en el calculador.</b> La guía te enseña el criterio y el calculador hace la suma rápido.</div></li><li><span class="num">4</span><div><b>Termina tu lista base en el capítulo 8.</b> Esa lista es el resultado del kit. Guárdala cerca de donde cotizas.</div></li></ol>
+<div class="co teal"><h3>Una promesa honesta</h3><p>Esta guía no te promete ventas. Te promete algo que sí controla tu negocio: que cada precio que des tenga tus costos, tu tiempo y tu ganancia adentro. Vender con números claros se siente muy distinto a vender con los dedos cruzados.</p></div>
+</section>
+<section class="chap" id="como-calculador"><p class="eyebrow">El calculador incluido</p><h2>Así funciona el calculador de precios</h2>
+<p class="lede">Nada de fórmulas escondidas ni hojas complicadas. El calculador pide solo los datos que la guía te enseña a reunir, en este orden:</p>
+<ol class="stp"><li><span class="num">1</span><div><h4>Paso 1. Tu producto</h4>Nombre y moneda. Puedes elegir dólares, pesos mexicanos, colombianos, argentinos o chilenos, euros, soles, quetzales, lempiras o colones.</div></li><li><span class="num">2</span><div><h4>Paso 2. Materiales por pieza</h4>Precio del paquete, cuántas piezas trae y cuánto usas por pieza. El calculador saca el costo exacto y le suma la merma, normalmente entre 5 y 15 por ciento, por recortes y errores.</div></li><li><span class="num">3</span><div><h4>Paso 3. Tu tiempo</h4>Minutos para hacer una pieza y tu valor por hora del capítulo 3. El diseño, que se hace una sola vez, se reparte entre las ventas que esperas.</div></li><li><span class="num">4</span><div><h4>Paso 4. Lo que se olvida</h4>Cuchillas, empaque y otros gastos, el costo de tu máquina repartido entre su vida útil y tus gastos fijos del mes repartidos entre tus piezas.</div></li><li><span class="num">5</span><div><h4>Paso 5. Dónde vendes y tu ganancia</h4>Eliges el canal y su comisión, pones tu ganancia como porcentaje del precio final y decides si redondeas a .99. También puedes ver el precio de mayoreo y el precio con impuesto.</div></li><li><span class="num">6</span><div><h4>Paso 6. Prueba escenarios</h4>Cantidad, precio de otra tienda para comparar y tu meta de ingreso al mes. Sirve para decidir cuánto vender y qué pasa si bajas el precio.</div></li></ol>
+<p>Al final recibes tu precio sugerido, tu precio de mayoreo, tu ganancia por pieza, lo que te llevas por pieza (ganancia más tu pago), tu costo real, lo que ganas por hora y cuántas piezas al mes necesitas para tu meta. También ves a dónde se va cada peso del precio y tu tabla por cantidad.</p>
+<div class="co tint"><h3>Tres ejemplos ya verificados en el calculador</h3><p></p><div class="scroll"><table class="gt "><thead><tr><th>Producto de ejemplo</th><th class=r>Precio sugerido</th></tr></thead><tbody><tr><td>Plantilla SVG, archivo digital listo para vender</td><td class=r>$5.99</td></tr><tr><td>Caja papercraft, pieza física armada para fiesta</td><td class=r>$21.99</td></tr><tr><td>Topper de pastel personalizado</td><td class=r>$12.99</td></tr></tbody></table></div><p class="small">Ejemplos de referencia. Tus resultados serán distintos porque tus costos y tu precio por hora son tuyos.</p></div>
+<div class="co plain"><h3>Ejemplo rápido: una cajita de recuerdo</h3><p></p><div class="scroll"><table class="gt "><thead><tr><th>Concepto</th><th class=r>Costo por pieza</th></tr></thead><tbody><tr><td>Materiales (cartulina, pegamento, listón, etiqueta)</td><td class=r>$1.20</td></tr><tr><td>Tiempo de corte y armado, 10 minutos</td><td class=r>$1.70</td></tr><tr><td>Empaque y gastos generales</td><td class=r>$0.35</td></tr><tr class=b><td>Costo total real</td><td class=r>$3.25</td></tr><tr class=b><td>Precio sugerido, venta directa con ganancia del 40 por ciento</td><td class=r>$5.99</td></tr><tr class=b><td>Precio de mayoreo, tu piso para descuentos</td><td class=r>$4.99</td></tr><tr class=b><td>Precio en Etsy, con 9.5 por ciento + $0.45</td><td class=r>$7.99</td></tr></tbody></table></div><p class="small">La fórmula da $5.42 en venta directa y $7.33 en Etsy. El calculador los redondea a .99 y quedan $5.99 y $7.99.</p></div>
+<p><button type="button" class="btn primary go" data-goto="calc">Probar el calculador</button></p>
+</section>
+<section class="chap" id="indice"><p class="eyebrow">Índice de la guía</p><h2>Ocho capítulos, en el orden en que trabajas</h2><ol class="stp idx"><li><span class="num alt">1</span><div><a href="#cap1"><b>Por qué casi siempre cobramos de menos.</b></a> Los tres errores más comunes y cómo detectar si tus precios te dejan ganancia o solo trabajo.</div></li><li><span class="num alt">2</span><div><a href="#cap2"><b>Todos los costos, sin olvidar ninguno.</b></a> La lista completa para que ningún gasto salga de tu bolsillo.</div></li><li><span class="num alt">3</span><div><a href="#cap3"><b>Cuánto vale tu tiempo.</b></a> Precio por hora de diseño, corte, armado y empaque, y cómo cobrar el diseño por separado.</div></li><li><span class="num alt">4</span><div><a href="#cap4"><b>La fórmula simple del precio.</b></a> Una sola fórmula, explicada con calma, que sirve para una cajita, un topper o un paquete completo.</div></li><li><span class="num alt">5</span><div><a href="#cap5"><b>Precios por cantidad sin perder.</b></a> Descuentos por docena y por paquete que sí convienen, con límite claro.</div></li><li><span class="num alt">6</span><div><a href="#cap6"><b>Ajustes según dónde vendes.</b></a> En persona, por redes o en Etsy, comisiones y envío sin asustar a la clienta y sin absorber costos.</div></li><li><span class="num alt">7</span><div><a href="#cap7"><b>Cómo presentar el precio y pedir anticipo.</b></a> Cotizar por escrito, poner vigencia y responder al clásico “¿por qué tan caro?” con seguridad.</div></li><li><span class="num alt">8</span><div><a href="#cap8"><b>Tu lista de precios lista para usar.</b></a> Tu lista base con tus productos principales, para que cotizar te tome minutos.</div></li></ol><div class="co plain"><h3>Qué necesitas a la mano</h3><p>Un cuaderno o esta misma guía impresa, un lápiz, tu teléfono con calculadora, y tus últimos recibos o pedidos de material. Nada más. Todo lo demás lo vas construyendo capítulo a capítulo.</p></div></section>
+<section class="chap" id="cap1"><p class="eyebrow">Capítulo 1</p><h2>Por qué casi siempre cobramos de menos</h2><p class="lede">Casi nadie cobra de menos por gusto. Cobramos de menos por prisa, por pena y por costumbre. Este capítulo pone nombre a los tres errores que más se repiten, para que los reconozcas en tus propios precios.</p><h3>Error 1. Copiar el precio de otra</h3>
+<p>Ves una cajita parecida a la tuya en $4 y piensas, si ella cobra eso, yo también. El problema es que no sabes nada de sus números. Quizá compra la cartulina al mayoreo a mitad de precio. Quizá trabaja con una máquina más rápida. O quizá ella también está perdiendo y todavía no se ha dado cuenta.</p>
+<p>Copiar un precio es copiar una conclusión sin conocer la cuenta. Tu precio tiene que salir de tus costos, no de una captura de pantalla.</p>
+<h3>Error 2. Cobrar solo el material</h3>
+<p>Es el error más común y el más silencioso. La cuenta mental suele ser: gasté $2 en cartulina, cobro $4 y ya gané el doble. Pero en esa cajita también hubo tinta, pegamento, listón, la etiqueta, la bolsita, tu luz, el desgaste de tu máquina y los minutos que pasaste diseñando, cortando y armando.</p>
+<p>Cuando solo se cobra el material, el negocio paga los materiales y tú regalas todo lo demás. Por eso hay semanas de mucho trabajo y poco dinero. No es que vendas poco. Es que cada venta deja menos de lo que parece.</p>
+<h3>Error 3. Regalar el tiempo</h3>
+<p>El tiempo no se ve en la foto del producto terminado, y por eso se nos olvida cobrarlo. Pero piensa en un pedido real: la clienta escribe, preguntas tema y colores, buscas referencias, diseñas, mandas muestra, la clienta corrige un nombre, cortas, armas, empacas y entregas.</p>
+<p>Todo eso es trabajo, aunque una parte se haga desde el sofá con el teléfono en la mano. Si tu precio no incluye tu tiempo, estás pagando por trabajar.</p>
+<h3 id="cap1b">¿Tu precio deja ganancia o solo trabajo?</h3>
+<p>Hay una prueba sencilla para saberlo hoy mismo, sin esperar al final de la guía. Toma tu producto más vendido y responde con números reales, no con recuerdos.</p><div class="co tint"><h3>La prueba de los tres renglones</h3><p><b>1. ¿Cuánto cobras por esa pieza?</b> Escríbelo.<br><b>2. ¿Cuánto te cuesta hacerla, todo incluido?</b> Material, empaque, gastos y tu tiempo valorado aunque sea a un precio por hora sencillo para empezar.<br><b>3. ¿Qué queda al restar?</b> Si la resta da cero, da negativo o da una cantidad que no pagarías ni una hora de tu trabajo, tu precio deja trabajo, no ganancia.</p></div><p>Muchas creadoras descubren aquí que su producto estrella es el que menos deja. Se vende mucho porque está barato, y está barato porque nunca se calculó completo. La buena noticia es que eso se corrige con método, y el método es el resto de esta guía.</p><div class="co warm"><h3>Lo que no es cobrar caro</h3><p>Cobrar tu costo completo más una ganancia justa no es cobrar caro. Es cobrar lo que el trabajo vale. La clienta que compara solo precio siempre encontrará a alguien que regale su tiempo. Tu clienta ideal compara el terminado, la puntualidad, el diseño y la confianza de que su fiesta va a salir bien.</p></div><h3>Hoja del capítulo 1. Revisa tu producto más vendido</h3><div class="scroll"><table class="gt sheet"><thead><tr><th>Pregunta</th><th>Tu respuesta</th></tr></thead><tbody><tr><td>Producto que más vendo</td><td><input data-k="c1-0-0" type="text" aria-label="Tu respuesta Producto que más vendo"></td></tr><tr><td>Precio que cobro hoy por pieza</td><td><input data-k="c1-1-0" type="text" aria-label="Tu respuesta Precio que cobro hoy por pieza"></td></tr><tr><td>De dónde salió ese precio (lo copié, lo adiviné, lo calculé)</td><td><input data-k="c1-2-0" type="text" aria-label="Tu respuesta De dónde salió ese precio (lo copié, lo adiviné, lo calculé)"></td></tr><tr><td>Minutos reales que me toma, de inicio a entrega</td><td><input data-k="c1-3-0" type="text" aria-label="Tu respuesta Minutos reales que me toma, de inicio a entrega"></td></tr><tr><td>Si hoy repitiera ese pedido 20 veces, ¿me convendría? Sí o no, y por qué</td><td><input data-k="c1-4-0" type="text" aria-label="Tu respuesta Si hoy repitiera ese pedido 20 veces, ¿me convendría? Sí o no, y por qué"></td></tr></tbody></table></div><p class="small">Conserva esta hoja. En el capítulo 4 vas a recalcular este mismo producto con la fórmula completa y compararás el resultado.</p></section>
+<section class="chap" id="cap2"><p class="eyebrow">Capítulo 2</p><h2>Todos los costos, sin olvidar ninguno</h2><p class="lede">Un costo olvidado no desaparece. Lo pagas tú. Por eso este capítulo junta todos los gastos de una pieza de papelería en una sola lista, incluidos los que parecen tan pequeños que ni se notan.</p><h3>Los costos que sí se ven</h3><ul><li><b>Papel y cartulina.</b> La hoja que usas, no el paquete completo. Si el paquete trae 50 hojas y cuesta $10, cada hoja cuesta $0.20. Así de simple se saca el costo por hoja.</li><li><b>Tinta.</b> Si imprimes etiquetas, nombres o fondos, cada hoja impresa lleva un poco de tinta. Anota un costo estimado por hoja y ajústalo cuando cambies de cartucho.</li><li><b>Pegamento y cinta.</b> Barra, líquido, puntos adhesivos o cinta doble cara. Se gasta de a poco, pero se gasta en cada pieza.</li><li><b>Listón, hilo y detalles.</b> Moños, cuerdas, piedritas, botones y cualquier detalle que cierre la pieza.</li><li><b>Empaque.</b> Bolsita, caja, papel de relleno, calcomanía de gracias y tarjeta. El empaque bonito también cuesta, y la clienta lo recibe como parte del producto.</li></ul><h3>Los costos que casi nadie anota</h3><ul><li><b>Luz y uso de tu espacio.</b> No necesitas una cuenta exacta de electricidad. Un monto pequeño por pieza o por pedido, anotado siempre igual, cubre este gasto sin complicarte.</li><li><b>Desgaste de tu máquina de corte.</b> Las cuchillas se acaban, las alfombrillas pierden agarre y la máquina necesita mantenimiento. Guarda un poco por pedido para reponerlos. Cuando la cuchilla se acaba a mitad de un pedido urgente, ese gasto ya debería estar cobrado.</li><li><b>Merma.</b> La hoja que se corta mal, el nombre que salió con error, la pieza que se dobla al armar. Una de cada cierto número de piezas se pierde, y ese costo se reparte entre las buenas.</li><li><b>Entrega y mensajes.</b> Gasolina o transporte si entregas, y el tiempo de atender a la clienta, que se cobra en el capítulo 3.</li></ul><h3>Hoja de trabajo. Tu lista completa de costos</h3><p>Marca cada renglón que aplique a tu trabajo y escribe tu costo. Si un dato no lo sabes todavía, estima con lo que pagaste la última vez y márcalo para revisarlo después. Una estimación honesta gana contra un cero olvidado.</p><div class="scroll"><table class="gt sheet"><thead><tr><th>Listo</th><th>Costo</th><th>¿Cuánto me cuesta?</th><th>Por hoja, pieza o pedido</th></tr></thead><tbody><tr><td class="chk"><input type="checkbox" data-k="c2-chk-0" aria-label="Listo: Papel y cartulina"></td><td>Papel y cartulina</td><td><input data-k="c2-0-0" type="text" aria-label="¿Cuánto me cuesta? Papel y cartulina"></td><td><input data-k="c2-0-1" type="text" aria-label="Por hoja, pieza o pedido Papel y cartulina"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-1" aria-label="Listo: Tinta de impresión"></td><td>Tinta de impresión</td><td><input data-k="c2-1-0" type="text" aria-label="¿Cuánto me cuesta? Tinta de impresión"></td><td><input data-k="c2-1-1" type="text" aria-label="Por hoja, pieza o pedido Tinta de impresión"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-2" aria-label="Listo: Pegamento o cinta adhesiva"></td><td>Pegamento o cinta adhesiva</td><td><input data-k="c2-2-0" type="text" aria-label="¿Cuánto me cuesta? Pegamento o cinta adhesiva"></td><td><input data-k="c2-2-1" type="text" aria-label="Por hoja, pieza o pedido Pegamento o cinta adhesiva"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-3" aria-label="Listo: Listón, hilo o cuerda"></td><td>Listón, hilo o cuerda</td><td><input data-k="c2-3-0" type="text" aria-label="¿Cuánto me cuesta? Listón, hilo o cuerda"></td><td><input data-k="c2-3-1" type="text" aria-label="Por hoja, pieza o pedido Listón, hilo o cuerda"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-4" aria-label="Listo: Detalles (piedritas, botones, etiquetas)"></td><td>Detalles (piedritas, botones, etiquetas)</td><td><input data-k="c2-4-0" type="text" aria-label="¿Cuánto me cuesta? Detalles (piedritas, botones, etiquetas)"></td><td><input data-k="c2-4-1" type="text" aria-label="Por hoja, pieza o pedido Detalles (piedritas, botones, etiquetas)"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-5" aria-label="Listo: Empaque (bolsita, caja, relleno, tarjeta)"></td><td>Empaque (bolsita, caja, relleno, tarjeta)</td><td><input data-k="c2-5-0" type="text" aria-label="¿Cuánto me cuesta? Empaque (bolsita, caja, relleno, tarjeta)"></td><td><input data-k="c2-5-1" type="text" aria-label="Por hoja, pieza o pedido Empaque (bolsita, caja, relleno, tarjeta)"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-6" aria-label="Listo: Luz y gastos generales"></td><td>Luz y gastos generales</td><td><input data-k="c2-6-0" type="text" aria-label="¿Cuánto me cuesta? Luz y gastos generales"></td><td><input data-k="c2-6-1" type="text" aria-label="Por hoja, pieza o pedido Luz y gastos generales"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-7" aria-label="Listo: Desgaste de máquina, cuchillas y alfombrillas"></td><td>Desgaste de máquina, cuchillas y alfombrillas</td><td><input data-k="c2-7-0" type="text" aria-label="¿Cuánto me cuesta? Desgaste de máquina, cuchillas y alfombrillas"></td><td><input data-k="c2-7-1" type="text" aria-label="Por hoja, pieza o pedido Desgaste de máquina, cuchillas y alfombrillas"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-8" aria-label="Listo: Merma, piezas que se pierden"></td><td>Merma, piezas que se pierden</td><td><input data-k="c2-8-0" type="text" aria-label="¿Cuánto me cuesta? Merma, piezas que se pierden"></td><td><input data-k="c2-8-1" type="text" aria-label="Por hoja, pieza o pedido Merma, piezas que se pierden"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-9" aria-label="Listo: Entrega o envío interno, si aplica"></td><td>Entrega o envío interno, si aplica</td><td><input data-k="c2-9-0" type="text" aria-label="¿Cuánto me cuesta? Entrega o envío interno, si aplica"></td><td><input data-k="c2-9-1" type="text" aria-label="Por hoja, pieza o pedido Entrega o envío interno, si aplica"></td></tr><tr><td class="chk"><input type="checkbox" data-k="c2-chk-10" aria-label="Listo: Otro costo propio de mi producto:"></td><td>Otro costo propio de mi producto:</td><td><input data-k="c2-10-0" type="text" aria-label="¿Cuánto me cuesta? Otro costo propio de mi producto:"></td><td><input data-k="c2-10-1" type="text" aria-label="Por hoja, pieza o pedido Otro costo propio de mi producto:"></td></tr></tbody></table></div><div class="co tint"><h3>Cómo sacar el costo por hoja en 10 segundos</h3><p>Precio del paquete dividido entre número de hojas. Ejemplo: un paquete de cartulina de $12 con 60 hojas da $12 entre 60, igual a <b>$0.20 por hoja</b>. Si tu cajita usa 2 hojas, su cartulina cuesta $0.40. Esa misma división sirve para bolsitas, etiquetas y listón por metro.</p></div><p class="small">Consejo de taller: anota el precio cada vez que compres material. Los precios suben sin avisar, y una lista de hace un año ya cobra con números viejos.</p><p><button type="button" class="btn primary go" data-goto="calc">Llenar los materiales en el calculador</button></p></section>
+<section class="chap" id="cap3"><p class="eyebrow">Capítulo 3</p><h2>Cuánto vale tu tiempo</h2><p class="lede">Tu tiempo es el costo más grande de la papelería personalizada y el que menos se cobra. Aquí le pones precio a tu hora, por tipo de tarea, sin sentir que estás inventando un número.</p><h3>Tu trabajo tiene cuatro tiempos distintos</h3><ul><li><b>Diseño.</b> Pensar el tema, buscar elementos, armar el archivo, poner nombres y corregir. Es el tiempo más especializado y el que más experiencia pide.</li><li><b>Corte.</b> Preparar hojas, supervisar la máquina, retirar piezas y acomodar. Aunque la máquina corte sola, tú estás pendiente y no puedes vender esa hora dos veces.</li><li><b>Armado.</b> Doblar, pegar, poner listón y cerrar cada pieza. Es el tiempo que más crece con la cantidad.</li><li><b>Empaque.</b> Contar, embolsar, etiquetar y preparar la entrega. Parece final rápido, pero en pedidos grandes toma su buen rato.</li></ul><h3>Cómo elegir tu precio por hora</h3><p>Empieza con una pregunta honesta: ¿cuánto tendría que pagarte alguien más por una hora de este trabajo para que aceptes? Ese número es tu piso. Después compáralo con lo que necesitas ganar al mes y las horas reales que puedes trabajar. Si necesitas $800 al mes y puedes dedicar 80 horas a pedidos, tu hora no puede valer menos de $10, porque $800 entre 80 horas da $10 por hora.</p><div class="co tint"><h3>La cuenta en limpio</h3><p>Precio por hora elegido: <b>$10 por hora</b>. Un minuto cuesta $10 entre 60, igual a $0.17 aproximadamente. Diez minutos de armado cuestan 10 por $0.17, igual a <b>$1.70</b>. Ese es exactamente el tiempo usado en el ejemplo de la cajita del capítulo 4.<br><span class="small">Puedes empezar con un precio por hora y subirlo conforme tu trabajo se llena. Si tienes pedidos esperando cada semana, tu hora vale más, no menos.</span></p></div><p>No compares tu precio por hora con un sueldo de oficina. Tu hora tiene que cubrir también tus materiales de oficina, tu aprendizaje, tus días sin pedidos y tu ganancia. Por eso una hora de taller independiente nunca se cobra como una hora de nómina.</p><h3 id="cap3b">Cómo cobrar el diseño</h3><p>El diseño se cobra siempre. A veces va incluido dentro del precio del producto, pero nunca desaparece de la cuenta. Hay dos casos que merecen regla propia.</p><h4>Cuando la clienta solo quiere el archivo</h4><p>Si vendes la plantilla SVG o el archivo listo para cortar, estás vendiendo el diseño completo, no un favor. Ese archivo se hizo una vez y se puede vender muchas veces, por eso su precio se piensa distinto: suma tus horas de diseño, tu experiencia y el hecho de que la compradora ahorra ese trabajo entero. En el calculador, la plantilla SVG de ejemplo da un precio sugerido de <b>$5.99</b>, y es un buen referente de cómo se ve un archivo cobrado con criterio: el tiempo de diseño se reparte entre las ventas que esperas, no se carga a una sola venta.</p><h4>Cuando la clienta cambia de idea a mitad de camino</h4><p>Pasa en casi todo pedido. Ya diseñaste con un tema y pide otro. Ya pusiste un nombre y manda una lista distinta. La regla amable y firme es esta: la cotización incluye una ronda de cambios de texto. Un cambio de tema, de colores completos o de diseño completo se cobra como diseño nuevo, y se avisa antes de hacerlo, por escrito.</p><div class="co quote"><p><i>Tu pedido incluye el diseño con los datos que me pasaste y una corrección de texto. Si quieres cambiar el tema o el diseño completo, con gusto lo hacemos, solo se suma el costo del diseño nuevo antes de cortarlo.</i></p></div><h3>Hoja del capítulo 3. Calcula tu tiempo</h3><div class="scroll"><table class="gt sheet"><thead><tr><th>Tarea</th><th>Minutos por pieza o pedido</th><th>Mi precio por hora</th></tr></thead><tbody><tr><td>Diseño</td><td><input data-k="c3-0-0" type="text" aria-label="Minutos por pieza o pedido Diseño"></td><td><input data-k="c3-0-1" type="text" aria-label="Mi precio por hora Diseño"></td></tr><tr><td>Corte</td><td><input data-k="c3-1-0" type="text" aria-label="Minutos por pieza o pedido Corte"></td><td><input data-k="c3-1-1" type="text" aria-label="Mi precio por hora Corte"></td></tr><tr><td>Armado</td><td><input data-k="c3-2-0" type="text" aria-label="Minutos por pieza o pedido Armado"></td><td><input data-k="c3-2-1" type="text" aria-label="Mi precio por hora Armado"></td></tr><tr><td>Empaque</td><td><input data-k="c3-3-0" type="text" aria-label="Minutos por pieza o pedido Empaque"></td><td><input data-k="c3-3-1" type="text" aria-label="Mi precio por hora Empaque"></td></tr><tr class=b><td>Total de minutos por pieza</td><td><input data-k="c3-4-0" type="text" aria-label="Minutos por pieza o pedido Total de minutos por pieza"></td><td><input data-k="c3-4-1" type="text" aria-label="Mi precio por hora Total de minutos por pieza"></td></tr></tbody></table></div><p class="small">Mide tus minutos con el cronómetro del teléfono en tu próximo pedido real. Medir una vez vale más que adivinar diez veces, porque casi siempre tardamos más de lo que creemos.</p></section>
+<section class="chap" id="cap4"><p class="eyebrow">Capítulo 4</p><h2>La fórmula simple del precio</h2><p class="lede">Todo lo anterior se junta en una sola fórmula. Una sola. Si recuerdas esta página, puedes cotizar cualquier producto de papelería sin abrir un libro de cuentas.</p><div class="co teal"><h3>La fórmula</h3><p class="formula-line">Precio = (costo por pieza + cargo fijo) ÷ (1 − comisión − ganancia)</p><p>Primero sumas lo que la pieza cuesta de verdad: materiales, tiempo y gastos. Después divides entre lo que queda después de la comisión del canal y tu ganancia. Se divide y no se suma, porque la comisión y la ganancia son partes del precio final, no recargos sobre el costo. Nunca al revés, nunca la ganancia primero y los costos si sobra espacio.</p></div><h3>La fórmula, parte por parte</h3><ul><li><b>Materiales.</b> Lo que llenaste en el capítulo 2, por pieza: cartulina, tinta, pegamento, listón, detalles y empaque.</li><li><b>Tiempo.</b> Tus minutos del capítulo 3 convertidos a dinero con tu precio por hora.</li><li><b>Gastos.</b> Luz, desgaste de máquina, merma y esos costos generales que no pertenecen a una sola pieza pero sí a todas.</li><li><b>Ganancia.</b> Lo que el negocio gana además de pagarte tu tiempo, como porcentaje del precio final. Una referencia práctica: entre 35 y 50 por ciento para papercraft físico personalizado, 15 a 25 por ciento para recuerdos por mayoreo, 60 a 80 por ciento para archivos digitales, 35 a 50 por ciento para papelería de eventos y 30 a 45 por ciento para kits con materiales. En el ejemplo de abajo, la ganancia es del 40 por ciento.</li></ul><p>El margen no es un lujo. Con el margen repones material sin pedir prestado, compras una cuchilla sin dolor, ahorras para una máquina mejor y te pagas en los meses flojos. Un negocio sin margen vive de pedido en pedido, y un mes malo lo pone en riesgo.</p><div class="co warm"><h3>Precio mínimo y precio sugerido</h3><p>El <b>precio mínimo</b> es tu precio de mayoreo, o sea la venta directa sin comisión. Por debajo de ahí, no vendas, porque cada venta te quita dinero. El <b>precio sugerido</b> es el precio normal de venta en el canal que elegiste, con tu ganancia completa. El mínimo sirve para decidir, el sugerido sirve para cotizar. El calculador también te muestra cuánto te llevas por pieza, que es tu ganancia más tu pago por tu tiempo, y cuánto ganas por hora real.</p></div><h3 id="cap4b">Ejemplo completo: cajita de recuerdo</h3><p>Vamos con la cajita de la portada del calculador, cuenta por cuenta, para que veas que no hay truco.</p><div class="scroll"><table class="gt "><thead><tr><th>Concepto</th><th class=r>Costo por pieza</th></tr></thead><tbody><tr><td>Materiales (cartulina, pegamento, listón, etiqueta)</td><td class=r>$1.20</td></tr><tr><td>Tiempo de corte y armado, 10 minutos a $10 la hora</td><td class=r>$1.70</td></tr><tr><td>Empaque y gastos generales</td><td class=r>$0.35</td></tr><tr class=b><td>Costo total real</td><td class=r>$3.25</td></tr><tr class=b><td>Precio sugerido, venta directa con ganancia del 40 por ciento</td><td class=r>$5.99</td></tr><tr class=b><td>Precio de mayoreo, tu piso para descuentos</td><td class=r>$4.99</td></tr><tr class=b><td>Precio en Etsy, con 9.5 por ciento + $0.45</td><td class=r>$7.99</td></tr></tbody></table></div><p>Fíjate en lo que pasa si hubieras cobrado copiando un precio de $4. Tu costo real es $3.25, así que te quedarían $0.75 por una pieza que te tomó diseño, corte, armado y empaque. Y si en ese pedido hubo una sola hoja mal cortada, ni eso queda. A $5.99, en cambio, la misma cajita te paga tu tiempo y deja $2.74 de ganancia por pieza. La cuenta es: $3.25 ÷ (1 − 40 por ciento) = $5.42, y el calculador lo redondea a $5.99.</p><div class="co tint"><h3>El segundo referente del calculador</h3><p>La caja papercraft completa, con más piezas y más armado que la cajita de recuerdo, da en el calculador un precio sugerido de <b>$21.99</b>. El topper de pastel personalizado da <b>$12.99</b>. No son precios inventados. Es la misma fórmula con más material y más minutos. Cuando un producto lleva más trabajo, la fórmula lo muestra sola.</p></div><h3>Hoja del capítulo 4. Tu fórmula con tu producto estrella</h3><div class="scroll"><table class="gt sheet"><thead><tr><th>Renglón</th><th>Tu número</th></tr></thead><tbody><tr><td>Materiales por pieza</td><td><input data-k="c4-0-0" type="text" aria-label="Tu número Materiales por pieza"></td></tr><tr><td>Tiempo por pieza, en dinero</td><td><input data-k="c4-1-0" type="text" aria-label="Tu número Tiempo por pieza, en dinero"></td></tr><tr><td>Empaque y gastos por pieza</td><td><input data-k="c4-2-0" type="text" aria-label="Tu número Empaque y gastos por pieza"></td></tr><tr class=b><td>Costo total real (suma los tres)</td><td><input data-k="c4-3-0" type="text" aria-label="Tu número Costo total real (suma los tres)"></td></tr><tr><td>Mi precio de mayoreo, venta directa (mi piso)</td><td><input data-k="c4-4-0" type="text" aria-label="Tu número Mi precio de mayoreo, venta directa (mi piso)"></td></tr><tr class=b><td>Mi precio sugerido</td><td><input data-k="c4-5-0" type="text" aria-label="Tu número Mi precio sugerido"></td></tr><tr><td>Precio que cobraba antes (hoja del capítulo 1)</td><td><input data-k="c4-6-0" type="text" aria-label="Tu número Precio que cobraba antes (hoja del capítulo 1)"></td></tr><tr><td>Diferencia entre mi precio nuevo y el anterior</td><td><input data-k="c4-7-0" type="text" aria-label="Tu número Diferencia entre mi precio nuevo y el anterior"></td></tr></tbody></table></div><p><button type="button" class="btn primary go" data-goto="calc">Calcular mi precio en el calculador</button></p></section>
+<section class="chap" id="cap5"><p class="eyebrow">Capítulo 5</p><h2>Precios por cantidad sin perder</h2><p class="lede">En fiestas, casi todo se vende por cantidad. Doce cajitas, veinticuatro toppers, un paquete completo. El descuento por volumen sí puede convenir, pero solo cuando sale de tu eficiencia, nunca de tu ganancia.</p><h3>Por qué sí puedes bajar un poco por cantidad</h3><p>Hay costos que se pagan una sola vez por pedido, no por pieza. El diseño es el mejor ejemplo: diseñar el tema toma el mismo tiempo para 1 cajita que para 30. Cuando ese costo fijo se reparte entre muchas piezas, cada pieza sale un poco más barata de producir. Esa diferencia, y solo esa, es el descuento honesto que puedes compartir.</p><p>También ahorras un poco al cortar varias hojas seguidas y al comprar material por paquete. Pero tu tiempo de armado por pieza casi no cambia. La cajita número 30 se dobla y se pega igual que la primera.</p><h3>Cuándo bajar, cuánto bajar y dónde está el límite</h3><ul><li><b>Cuándo bajar.</b> Cuando el pedido reparte costos fijos, como diseño y preparación, entre suficientes piezas. En piezas sueltas o pedidos de menos de 6, normalmente no hay descuento.</li><li><b>Cuánto bajar.</b> La tabla del calculador: sin descuento en 1 y 6 piezas, 5 por ciento en 12, 8 por ciento en 25, 12 por ciento en 50 y 15 por ciento en 100, siempre revisando que el precio final quede arriba de tu precio de mayoreo del capítulo 4.</li><li><b>Dónde poner el límite.</b> Tu límite es tu precio de mayoreo. Si la clienta pide un descuento que cruza ese renglón, la respuesta no es bajar más. La respuesta es ofrecer menos piezas, un diseño más simple o un material distinto.</li></ul><div class="co warm"><h3>La trampa del pedido grande</h3><p>Un pedido grande con mal precio es peor que un pedido chico con mal precio, porque multiplica la pérdida y te ocupa toda la semana. Antes de aceptar un volumen grande, haz la cuenta total: precio por pieza por cantidad, comparado contra tu costo total del pedido entero. Si el total no te deja ganancia clara, el tamaño del pedido no lo salva.</p></div><h3 id="cap5b">Tu tabla de cantidades, de 1 a 100 piezas</h3><p>Usa esta tabla con un producto tuyo. El ejemplo usa la cajita de recuerdo de $5.99 para que veas el patrón. En tu versión, escribe tu precio sugerido y aplica tus descuentos con el límite de tu precio de mayoreo siempre a la vista.</p><div class="scroll"><table class="gt "><thead><tr><th>Cantidad</th><th class=r>Precio por pieza</th><th class=r>Total del pedido</th><th>Nota</th></tr></thead><tbody><tr><td>1</td><td class=r>$5.99</td><td class=r>$5.99</td><td>Precio base, sin descuento</td></tr><tr><td>6</td><td class=r>$5.99</td><td class=r>$35.94</td><td>Media docena, precio base</td></tr><tr><td>12</td><td class=r>$5.69</td><td class=r>$68.28</td><td>Docena, 5 por ciento menos</td></tr><tr><td>25</td><td class=r>$5.51</td><td class=r>$137.75</td><td>8 por ciento menos</td></tr><tr><td>50</td><td class=r>$5.27</td><td class=r>$263.50</td><td>12 por ciento menos</td></tr><tr><td>100</td><td class=r>$5.09</td><td class=r>$509.00</td><td>Paquete grande, 15 por ciento menos</td></tr></tbody></table></div><p class="small">Revisa el límite: aun con el mayor descuento, $5.09 sigue arriba del precio de mayoreo de $4.99 y del costo real de $3.25. Ese es el chequeo que se hace siempre, en cada producto. Nota: si activas el redondeo a .99 en el calculador, en precios bajos como este los descuentos chicos se pierden al redondear y la tabla te muestra $5.99 en cada fila. Por eso esta tabla usa centavos exactos: así ves el descuento real antes del redondeo.</p><h3>Hoja del capítulo 5. Arma tu propia tabla</h3><div class="scroll"><table class="gt sheet"><thead><tr><th>Cantidad</th><th>Mi precio por pieza</th><th>Total</th><th>¿Queda arriba de mi mayoreo? Sí o no</th></tr></thead><tbody><tr><td>1</td><td><input data-k="c5-0-0" type="text" aria-label="Mi precio por pieza 1"></td><td><input data-k="c5-0-1" type="text" aria-label="Total 1"></td><td><input data-k="c5-0-2" type="text" aria-label="¿Queda arriba de mi mayoreo? Sí o no 1"></td></tr><tr><td>12</td><td><input data-k="c5-1-0" type="text" aria-label="Mi precio por pieza 12"></td><td><input data-k="c5-1-1" type="text" aria-label="Total 12"></td><td><input data-k="c5-1-2" type="text" aria-label="¿Queda arriba de mi mayoreo? Sí o no 12"></td></tr><tr><td>25</td><td><input data-k="c5-2-0" type="text" aria-label="Mi precio por pieza 25"></td><td><input data-k="c5-2-1" type="text" aria-label="Total 25"></td><td><input data-k="c5-2-2" type="text" aria-label="¿Queda arriba de mi mayoreo? Sí o no 25"></td></tr><tr><td>100</td><td><input data-k="c5-3-0" type="text" aria-label="Mi precio por pieza 100"></td><td><input data-k="c5-3-1" type="text" aria-label="Total 100"></td><td><input data-k="c5-3-2" type="text" aria-label="¿Queda arriba de mi mayoreo? Sí o no 100"></td></tr></tbody></table></div><p>Consejo: presenta siempre primero el precio por paquete completo, no solo el de pieza con descuento. La clienta de fiesta piensa en su evento completo, y el paquete le hace la cuenta más fácil a ella y a ti.</p><p><button type="button" class="btn primary go" data-goto="calc">Ver mi tabla por cantidad en el calculador</button></p></section>
+<section class="chap" id="cap6"><p class="eyebrow">Capítulo 6</p><h2>Ajustes según dónde vendes</h2><p class="lede">El mismo producto no deja lo mismo en cada canal. En persona te quedas con casi todo. Por redes pagas envío o entrega. En Etsy, la plataforma cobra por vender ahí. Tu precio tiene que saber dónde está parado.</p><h3>Venta en persona y en tu comunidad local</h3><p>Es el canal más limpio. Cobras tu precio sugerido, entregas en mano y no hay comisión. Aun así, anota tiempo de entrega y el empaque como siempre. Local no significa gratis, significa sin intermediario.</p><h3>Venta por redes sociales</h3><p>Aquí el costo escondido suele ser el envío. Decide tu regla una sola vez y úsala siempre: envío cobrado por separado al costo real, o envío incluido con el precio ajustado hacia arriba. Lo que no funciona es incluir el envío sin ajustar el precio, porque ese dinero sale de tu margen en cada pedido.</p><p>Presenta el envío como lo que es, un servicio aparte con su precio. La clienta entiende pagar por recibir el pedido en casa cuando lo ve escrito como renglón separado.</p><h3>Venta en Etsy</h3><p>Cada canal cobra distinto, y esos cobros se pueden planear. Las tarifas que usa el calculador como referencia aproximada son:</p><div class="scroll"><table class="gt "><thead><tr><th>Canal</th><th class=r>Referencia aproximada</th></tr></thead><tbody><tr><td>Etsy</td><td class=r>9.5 por ciento + $0.45</td></tr><tr><td>Etsy con anuncios externos</td><td class=r>24.5 por ciento + $0.45</td></tr><tr><td>Tienda web</td><td class=r>2.9 por ciento + $0.30</td></tr><tr><td>Venta directa o en persona</td><td class=r>Sin comisión</td></tr></tbody></table></div><p class="small">Son valores de referencia para calcular, no una garantía. Cada plataforma puede actualizar sus tarifas, así que revísalas en tu panel de vendedora antes de publicar precios nuevos. El método no cambia aunque un porcentaje se mueva un poco: la comisión se incluye en la fórmula dividiendo, como hace el calculador.</p><h3 id="cap6b">Ajusta un precio por canal, paso a paso</h3><div class="co tint"><h3>Ejemplo con la cajita de $5.99</h3><p>En persona, cobras $5.99 y conservas tu ganancia completa. En Etsy, con 9.5 por ciento más $0.45 por venta, el precio sube a $7.99 para que al final te quede lo mismo. El calculador hace ese ajuste por ti y te entrega el precio de cada canal. Tu tarea es no publicar el precio de venta en persona dentro de Etsy esperando el mismo resultado, porque matemáticamente no lo da.</p></div><h3>Hoja del capítulo 6. Un precio, tres canales</h3><p class="mp">Mi producto: <input data-k="c6-prod" type="text" aria-label="Mi producto"></p><div class="scroll"><table class="gt sheet"><thead><tr><th>Canal</th><th>Precio que publico</th><th>Qué cobros resté o sumé</th></tr></thead><tbody><tr><td>En persona</td><td><input data-k="c6-0-0" type="text" aria-label="Precio que publico En persona"></td><td><input data-k="c6-0-1" type="text" aria-label="Qué cobros resté o sumé En persona"></td></tr><tr><td>Por redes, con envío</td><td><input data-k="c6-1-0" type="text" aria-label="Precio que publico Por redes, con envío"></td><td><input data-k="c6-1-1" type="text" aria-label="Qué cobros resté o sumé Por redes, con envío"></td></tr><tr><td>En Etsy</td><td><input data-k="c6-2-0" type="text" aria-label="Precio que publico En Etsy"></td><td><input data-k="c6-2-1" type="text" aria-label="Qué cobros resté o sumé En Etsy"></td></tr></tbody></table></div><ul><li>Nunca absorbas una comisión sin darte cuenta. Si decides absorberla como promoción, que sea decisión escrita, con fecha de fin.</li><li>El envío se anuncia antes del pago, nunca como sorpresa al final.</li><li>Si un canal deja de convenir después de hacer estas cuentas, súbele el precio en ese canal o deja ese canal para productos de mayor margen, como archivos digitales.</li></ul><p class="small">Los archivos digitales, como las plantillas SVG, combinan muy bien con Etsy: no llevan envío físico ni empaque, y el mismo archivo se vende muchas veces. Por eso la plantilla de ejemplo sostiene su precio sugerido de $5.99 en ese canal.</p><p><button type="button" class="btn primary go" data-goto="calc">Comparar canales en el calculador</button></p></section>
+<section class="chap" id="cap7"><p class="eyebrow">Capítulo 7</p><h2>Cómo presentar el precio y pedir anticipo sin que pidan rebaja</h2><p class="lede">Un precio bien calculado todavía necesita presentarse bien. La forma de cotizar decide si la clienta dice sí, si pide rebaja o si desaparece.</p><h3>Cotiza siempre por escrito</h3><p>Una cotización escrita protege a las dos. Incluye qué lleva el producto, cantidad, fecha de entrega, precio total, anticipo y vigencia. Lo que no se escribe se negocia después de memoria, y en esa negociación casi siempre pierde quien hace el trabajo.</p><div class="co quote"><p><i>Hola, te dejo tu cotización por escrito. Son 25 cajitas de recuerdo con nombre de cada invitado, en los colores de tu fiesta, listas para el sábado 18. El total es $137.75. Para apartar tu fecha se requiere un anticipo del 50 por ciento, y esta cotización tiene vigencia hasta el jueves. Con tu anticipo, tu fecha queda separada y empiezo tu diseño.</i></p></div><p>Fíjate en todo lo que hace ese mensaje corto: nombra el producto, la cantidad, la personalización, la fecha, el total, el anticipo y la fecha límite. No hay espacio para confusión ni para un precio distinto después.</p><h3>Pide anticipo sin pena</h3><p>El anticipo no es desconfianza. Es cómo se aparta una fecha y se compra el material de un pedido personalizado que no se puede vender a otra persona si la clienta cancela. Una práctica común es pedir el 50 por ciento para empezar y el resto contra entrega. En archivos digitales y productos de Etsy, el pago es completo por adelantado, como ya funciona la plataforma.</p><h3>Pon fecha de vigencia</h3><p>Los precios de material cambian y tu agenda se llena. Una cotización sin fecha queda abierta para siempre, y la clienta puede volver en tres meses esperando el mismo precio con tu agenda llena. Siete a quince días de vigencia es razonable para pedidos de fiesta. Escríbela siempre.</p><h3 id="cap7b">Cómo responder al “¿por qué tan caro?”</h3><p>Esa pregunta llega, y no significa que tu precio esté mal. Significa que la clienta está comparando con una idea, no con tu trabajo completo. La respuesta que funciona explica, en dos frases, qué incluye el precio, sin disculparte y sin bajarlo en el mismo mensaje.</p><div class="co quote"><p><i>Entiendo que lo compares. El precio incluye el diseño personalizado con el nombre de tu niña, la cartulina de calidad, el corte, el armado a mano de cada cajita y el empaque listo para tu mesa. Es un trabajo hecho a mano y a tu medida, por eso no es el precio de un paquete genérico de tienda.</i></p></div><h3>Si pide rebaja directamente</h3><div class="co quote"><p><i>Mi precio ya está calculado con mi material y mi tiempo, y no trabajo con rebajas sobre ese precio. Lo que sí puedo hacer es ajustar el diseño a tu presupuesto: una cajita más sencilla o sin el detalle de listón baja el precio a $X, con la misma calidad de armado. Tú me dices cuál prefieres.</i></p></div><p>Ese guion hace algo importante: cambia la conversación de bajar precio a bajar alcance. Si el presupuesto es menor, el producto se simplifica. Tu hora no entra en oferta.</p><h3>Hoja del capítulo 7. Tu cotización base</h3><div class="scroll"><table class="gt sheet"><thead><tr><th>Elemento</th><th>Mi texto o mi regla</th></tr></thead><tbody><tr><td>Porcentaje de anticipo que pido</td><td><input data-k="c7-0-0" type="text" aria-label="Mi texto o mi regla Porcentaje de anticipo que pido"></td></tr><tr><td>Días de vigencia de mis cotizaciones</td><td><input data-k="c7-1-0" type="text" aria-label="Mi texto o mi regla Días de vigencia de mis cotizaciones"></td></tr><tr><td>Forma de pago que acepto</td><td><input data-k="c7-2-0" type="text" aria-label="Mi texto o mi regla Forma de pago que acepto"></td></tr><tr><td>Cambios incluidos en el precio</td><td><input data-k="c7-3-0" type="text" aria-label="Mi texto o mi regla Cambios incluidos en el precio"></td></tr><tr><td>Mi frase para explicar mi precio</td><td><input data-k="c7-4-0" type="text" aria-label="Mi texto o mi regla Mi frase para explicar mi precio"></td></tr></tbody></table></div><p class="small">Copia los guiones de esta página en las notas de tu teléfono. En el momento de responder, tener la frase lista vale más que pensar rápido.</p></section>
+<section class="chap" id="cap8"><p class="eyebrow">Capítulo 8</p><h2>Tu lista de precios lista para usar</h2><p class="lede">Llegaste al resultado del kit. Aquí juntas todo: tus costos del capítulo 2, tu tiempo del capítulo 3, tu fórmula del capítulo 4, tus cantidades del capítulo 5 y tus ajustes del capítulo 6, en una sola lista que vas a consultar cada vez que cotices.</p><h3>Cómo se llena esta lista</h3><ul><li>Una fila por producto principal. Empieza con tus cinco productos más pedidos, no con todo tu catálogo.</li><li>El precio mínimo es tu mayoreo, o sea la venta directa sin comisión. El sugerido lleva tu ganancia completa en el canal que elegiste. El de Etsy lleva el ajuste de canal.</li><li>La columna de cantidad usa tu tabla del capítulo 5, empezando por la docena.</li><li>Actualiza la lista cada vez que suba un material importante. Una lista con fecha vale oro.</li></ul><div class="co tint"><h3>Filas de ejemplo, ya llenas</h3><p></p><div class="scroll"><table class="gt "><thead><tr><th>Producto</th><th class=r>Costo real</th><th class=r>Precio mínimo</th><th class=r>Precio sugerido</th><th class=r>Docena</th></tr></thead><tbody><tr><td>Cajita de recuerdo</td><td class=r>$3.25</td><td class=r>$4.99</td><td class=r>$5.99</td><td class=r>$68.28</td></tr><tr><td>Caja papercraft grande</td><td class=r>$10.59</td><td class=r>$13.99</td><td class=r>$21.99</td><td class=r>$250.68</td></tr><tr><td>Plantilla SVG digital</td><td class=r>$0.70</td><td class=r>$1.99</td><td class=r>$5.99</td><td class=r>no aplica</td></tr></tbody></table></div><p class="small">Las filas de ejemplo muestran el formato con los números ya trabajados en esta guía. Tus filas llevan tus productos y tus cuentas.</p></div><p>Cuando esta lista está llena, cotizar deja de ser un momento de duda. Alguien escribe pidiendo precio, consultas tu lista, sumas la personalización si aplica, pegas tu texto de cotización del capítulo 7 y listo. Minutos, no una tarde.</p><h3 id="cap8b">Mi lista base de precios</h3><p class="mp">Fecha de esta lista: <input data-k="c8-fecha" type="text" aria-label="Fecha de esta lista"> Revísala cuando cambie el precio de tu cartulina, tu tinta o tu empaque.</p><div class="scroll"><table class="gt sheet"><thead><tr><th>Producto</th><th>Costo real</th><th>Precio mínimo</th><th>Precio sugerido</th><th>Precio en Etsy</th><th>Precio por docena</th></tr></thead><tbody><tr><td><input data-k="c8-0-0" type="text" aria-label="Fila 1 columna 1"></td><td><input data-k="c8-0-1" type="text" aria-label="Fila 1 columna 2"></td><td><input data-k="c8-0-2" type="text" aria-label="Fila 1 columna 3"></td><td><input data-k="c8-0-3" type="text" aria-label="Fila 1 columna 4"></td><td><input data-k="c8-0-4" type="text" aria-label="Fila 1 columna 5"></td><td><input data-k="c8-0-5" type="text" aria-label="Fila 1 columna 6"></td></tr><tr><td><input data-k="c8-1-0" type="text" aria-label="Fila 2 columna 1"></td><td><input data-k="c8-1-1" type="text" aria-label="Fila 2 columna 2"></td><td><input data-k="c8-1-2" type="text" aria-label="Fila 2 columna 3"></td><td><input data-k="c8-1-3" type="text" aria-label="Fila 2 columna 4"></td><td><input data-k="c8-1-4" type="text" aria-label="Fila 2 columna 5"></td><td><input data-k="c8-1-5" type="text" aria-label="Fila 2 columna 6"></td></tr><tr><td><input data-k="c8-2-0" type="text" aria-label="Fila 3 columna 1"></td><td><input data-k="c8-2-1" type="text" aria-label="Fila 3 columna 2"></td><td><input data-k="c8-2-2" type="text" aria-label="Fila 3 columna 3"></td><td><input data-k="c8-2-3" type="text" aria-label="Fila 3 columna 4"></td><td><input data-k="c8-2-4" type="text" aria-label="Fila 3 columna 5"></td><td><input data-k="c8-2-5" type="text" aria-label="Fila 3 columna 6"></td></tr><tr><td><input data-k="c8-3-0" type="text" aria-label="Fila 4 columna 1"></td><td><input data-k="c8-3-1" type="text" aria-label="Fila 4 columna 2"></td><td><input data-k="c8-3-2" type="text" aria-label="Fila 4 columna 3"></td><td><input data-k="c8-3-3" type="text" aria-label="Fila 4 columna 4"></td><td><input data-k="c8-3-4" type="text" aria-label="Fila 4 columna 5"></td><td><input data-k="c8-3-5" type="text" aria-label="Fila 4 columna 6"></td></tr><tr><td><input data-k="c8-4-0" type="text" aria-label="Fila 5 columna 1"></td><td><input data-k="c8-4-1" type="text" aria-label="Fila 5 columna 2"></td><td><input data-k="c8-4-2" type="text" aria-label="Fila 5 columna 3"></td><td><input data-k="c8-4-3" type="text" aria-label="Fila 5 columna 4"></td><td><input data-k="c8-4-4" type="text" aria-label="Fila 5 columna 5"></td><td><input data-k="c8-4-5" type="text" aria-label="Fila 5 columna 6"></td></tr><tr><td><input data-k="c8-5-0" type="text" aria-label="Fila 6 columna 1"></td><td><input data-k="c8-5-1" type="text" aria-label="Fila 6 columna 2"></td><td><input data-k="c8-5-2" type="text" aria-label="Fila 6 columna 3"></td><td><input data-k="c8-5-3" type="text" aria-label="Fila 6 columna 4"></td><td><input data-k="c8-5-4" type="text" aria-label="Fila 6 columna 5"></td><td><input data-k="c8-5-5" type="text" aria-label="Fila 6 columna 6"></td></tr></tbody></table></div><h3>Productos que voy a agregar después</h3><div class="lines"><input data-k="c8-p0" type="text" aria-label="Producto por agregar 1"><input data-k="c8-p1" type="text" aria-label="Producto por agregar 2"><input data-k="c8-p2" type="text" aria-label="Producto por agregar 3"></div><div class="co warm"><h3>Tu siguiente paso, hoy</h3><p>Elige tu próxima cotización real y hazla completa con esta guía a un lado. Costos, tiempo, fórmula, canal y texto por escrito con anticipo y vigencia. Una cotización bien hecha enseña más que leer dos veces. Y cuando la clienta diga que sí a tu precio completo, vas a sentir exactamente para qué hiciste todo este trabajo.<br><br><b>Gracias por crear con tus manos y por cobrar tu trabajo como se merece.</b><br><span class="small">Creations Dearie. Kit Papelería: aprende a dar los precios.</span></p></div><p class="row"><button type="button" class="btn primary go" data-goto="calc">Ir al calculador</button> <button type="button" class="btn" id="clearSheets">Borrar mis respuestas de las hojas</button></p><p class="small" id="clearMsg" hidden></p></section></div></div>
+<div id="view-calc" hidden>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Calculador de precios</p>
+  <h1>Haz las cuentas de tu producto</h1>
+  <p class="lead">Mete lo que cuesta hacer UNA pieza y te da el precio sugerido, el de mayoreo y lo que te queda de verdad después de comisiones. Los números de ejemplo son ficticios: cámbialos por los tuyos.</p>
+  <div class="starters">
+    <span class="lbl">Empieza con un ejemplo</span>
+    <button class="chip" data-preset="caja" type="button">Caja sorpresa <small>físico</small></button>
+    <button class="chip" data-preset="svg" type="button">Plantilla SVG <small>digital</small></button>
+    <button class="chip" data-preset="topper" type="button">Topper de pastel <small>físico</small></button>
+  </div>
+  <div class="starters" id="savedWrap" hidden>
+    <span class="lbl">Mis productos guardados</span>
+    <span id="saved" style="display:contents"></span>
+  </div>
+</header>
+
+<div class="layout">
+  <div class="col" id="inputs">
+
+    <section class="card">
+      <h2><span class="n">1</span>Tu producto</h2>
+      <p class="sub">Piensa en una sola pieza. Todo lo de abajo es el costo de UNA unidad.</p>
+      <div class="grid2">
+        <div class="f"><label for="name">Nombre del producto</label><div class="in"><input id="name" type="text" autocomplete="off"></div></div>
+        <div class="f"><label for="cur">Moneda</label><input type="hidden" id="cur" value="$"><div class="picks" data-for="cur"></div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="n">2</span>Materiales por pieza</h2>
+      <p class="sub">Anota lo que compras en paquete y cuánto usas por pieza. El calculador saca el costo exacto de cada uno. Ejemplo: cartulina de $12 con 25 hojas, usas 2 por caja.</p>
+      <div class="mats" id="mats"></div>
+      <div class="row-actions"><button class="btn" id="addMat" type="button">+ Agregar material</button></div>
+      <div class="grid2">
+        <div id="f-waste"></div>
+        <div class="alert" id="matTotal" style="align-self:end"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="n">3</span>Tu tiempo</h2>
+      <p class="sub">Tu mano de obra es un costo, no un regalo. Si no la cuentas, estás pagando por trabajar.</p>
+      <div class="grid2" id="timeFields"></div>
+    </section>
+
+    <section class="card">
+      <h2><span class="n">4</span>Lo que se olvida</h2>
+      <p class="sub">Centavos por pieza que, sumados en cien pedidos, son un sueldo.</p>
+      <div class="grid3" id="overFields"></div>
+      <div class="grid2" id="overFields2"></div>
+    </section>
+
+    <section class="card">
+      <h2><span class="n">5</span>Dónde vendes y tu ganancia</h2>
+      <p class="sub">La comisión se cobra sobre el precio final, por eso el calculador la incluye en el precio en vez de restarla después.</p>
+      <div class="f"><label for="channel">Canal de venta</label><input type="hidden" id="channel" value="etsy"><div class="picks" data-for="channel"></div><p class="hint">Tarifas aproximadas. Revisa las vigentes en tu cuenta: cambian con el tiempo.</p></div>
+      <div class="grid2" id="chanFields"></div>
+      <div class="f">
+        <label for="margin">Ganancia que quieres quedarte (% del precio final)</label>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:12px;align-items:center">
+          <input id="marginR" type="range" min="5" max="85" step="1" aria-label="Margen en control deslizable">
+          <div class="in"><input id="margin" type="number" inputmode="decimal" step="any" min="0"><span class="suf">%</span></div>
+        </div>
+        <p class="hint">Es la parte del precio que es ganancia tuya, aparte de pagarte tu tiempo. Entre 30% y 50% es sano en papercraft a mano.</p>
+        <p class="hint" style="margin-top:6px">Toca un tipo de producto para sugerir un margen:</p><input type="hidden" id="ptype" value=""><div class="picks" data-for="ptype"></div>
+      </div>
+      <div class="grid2" id="priceFields"></div>
+      <label class="check"><input type="checkbox" id="round"><span>Redondear el precio a terminar en .99</span></label>
+    </section>
+
+    <section class="card">
+      <h2><span class="n">6</span>Prueba escenarios</h2>
+      <p class="sub">Opcional. Sirve para decidir cuánto vender y qué pasa si bajas el precio.</p>
+      <div class="grid3" id="scenFields"></div>
+    </section>
+  </div>
+
+  <aside class="results" aria-live="polite">
+    <div class="mat">
+      <div>
+        <div class="k">Precio sugerido</div>
+        <div class="pname" id="rName"></div>
+        <div class="price" id="rPrice">—</div>
+        <div class="price-sub" id="rSub"></div>
+      </div>
+      <div class="alert" id="rAlert" hidden></div>
+      <div class="metrics">
+        <div class="metric"><b id="mWhole">—</b><span>Precio de mayoreo (venta directa)</span></div>
+        <div class="metric"><b id="mProfit">—</b><span>Ganancia por pieza</span></div>
+        <div class="metric"><b id="mTake">—</b><span>Te llevas por pieza (ganancia + tu pago)</span></div>
+        <div class="metric"><b id="mCost">—</b><span>Costo real por pieza</span></div>
+        <div class="metric"><b id="mHour">—</b><span>Lo que ganas por hora real</span></div>
+        <div class="metric"><b id="mMonth">—</b><span>Piezas al mes para tu meta</span></div>
+      </div>
+      <div>
+        <div class="k" style="margin-bottom:8px">A dónde se va cada peso del precio</div>
+        <div class="bar" id="bar"></div>
+        <div class="legend" id="legend" style="margin-top:12px"></div>
+      </div>
+      <div class="scen" id="scen"></div>
+      <div class="row-actions">
+        <button class="btn primary" id="copyBtn" type="button" style="background:var(--accent);color:var(--accent-ink);border-color:var(--accent)">Copiar mi resumen</button>
+        <button class="btn" id="saveBtn" type="button">Guardar este producto</button>
+      </div>
+      <p class="price-sub" id="saveMsg" hidden></p>
+      <textarea id="summaryBox" readonly hidden aria-label="Resumen para copiar"></textarea>
+    </div>
+  </aside>
+</div>
+
+<section class="card">
+  <h2>Tabla de precios por cantidad</h2>
+  <p class="sub">Para pedidos de fiesta: el precio por pieza baja con la cantidad, pero nunca por debajo de tu precio de mayoreo. La comisión fija se cobra una vez por pedido. Calculada con el canal que elegiste arriba.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Cantidad</th><th>Descuento</th><th>Precio por pieza</th><th>Total del pedido</th><th>Tu ganancia</th><th>Margen</th></tr></thead>
+    <tbody id="qtyBody"></tbody>
+  </table></div>
+</section>
+
+<section class="card">
+  <h2>La fórmula, sin miedo</h2>
+  <p class="sub">Esto es todo lo que hay detrás del calculador, para que puedas defender tu precio cuando alguien diga “en otro lado está más barato”.</p>
+  <div class="formula">PRECIO = ( COSTO POR PIEZA + CARGO FIJO ) ÷ ( 1 − COMISIÓN % − GANANCIA % )<span class="live" id="liveFormula"></span></div>
+  </section>
+
+
+</div>
+
+<div class="dock" aria-hidden="true"><div><div class="k" style="font:500 11px var(--f-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Precio sugerido</div><div class="p" id="dPrice">—</div></div><div class="g"><div>Ganancia <b id="dProfit">—</b></div><div>Te llevas <b id="dTake">—</b></div></div></div>
+
+</div>
+</main>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const F=(id,label,kind,hint,unit)=>`<div class="f"><label for="${id}">${label}</label><div class="in">${kind==='money'?'<span class="sym"></span>':''}<input id="${id}" type="number" inputmode="decimal" step="any" min="0">${kind==='pct'?'<span class="suf">%</span>':''}${unit?`<span class="suf">${unit}</span>`:''}</div>${hint?`<p class="hint">${hint}</p>`:''}</div>`;
+
+$('f-waste').innerHTML=F('waste','Merma (recortes y errores)','pct','Normalmente entre 5% y 15%.');
+$('timeFields').innerHTML=
+  F('prodMin','Minutos para hacer UNA pieza','num','Cronométrate una vez armando una pieza completa. En digital déjalo en 0.','min')+
+  F('rate','Tu valor por hora','money','¿Cuánto quieres ganar por hora de trabajo?','/h')+
+  F('designMin','Minutos de diseño (se hacen una sola vez)','num','Crear el archivo, la plantilla o el molde.','min')+
+  F('sales','Piezas entre las que repartes el diseño','num','Ventas que esperas de ese diseño. En digital pon las descargas esperadas.','pzas');
+$('overFields').innerHTML=
+  F('blade','Cuchillas, tapete y moldes','money','Costo repartido por pieza.')+
+  F('pack','Empaque','money','Caja, bolsa, tarjeta de gracias, relleno.')+
+  F('other','Otros gastos','money','Envío de insumos, etiquetas, lo que se te ocurra.');
+$('overFields2').innerHTML=
+  F('machine','Costo de tu máquina','money','Cricut, impresora, guillotina. Se reparte entre su vida útil.')+
+  F('life','Piezas que aguanta la máquina','num','Aproximado: ¿cuántas piezas harás antes de cambiarla?','pzas')+
+  F('fixedM','Gastos fijos al mes','money','Suscripciones, renta del espacio, software, licencias.')+
+  F('piecesM','Piezas que vendes al mes','num','Se usa para repartir esos gastos fijos.','pzas');
+$('chanFields').innerHTML=
+  F('comm','Comisión del canal','pct','Plataforma + pasarela de pago.')+
+  F('fee','Cargo fijo por venta','money','Procesamiento de pago, listado, anuncio.');
+$('priceFields').innerHTML=
+  F('wmargin','Ganancia para precio de mayoreo','pct','Venta directa, sin comisión.')+
+  F('tax','Impuesto a mostrar (opcional)','pct','Solo para mostrarte el precio con impuesto. No cambia tu ganancia.');
+$('scenFields').innerHTML=
+  F('qty','Si vendes esta cantidad','num','Ve el total del mes o de un pedido.','pzas')+
+  F('compPrice','Si lo vendes a este precio','money','Por ejemplo, el de otra tienda. Déjalo vacío para ignorarlo.')+
+  F('goal','Meta de ingreso al mes','money','Lo que quieres llevarte entre ganancia y pago por tu tiempo.');
+
+const CHANNELS={
+  etsy:{comm:9.5,fee:0.45},etsyads:{comm:24.5,fee:0.45},web:{comm:2.9,fee:0.30},direct:{comm:0,fee:0},local:{comm:0,fee:0}
+};
+const PRESETS={
+ caja:{name:'Caja sorpresa personalizada',mats:[
+   {n:'Cartulina texturizada',price:12,units:25,used:2},{n:'Impresión y tinta',price:18,units:60,used:1},
+   {n:'Listón (metros)',price:6,units:10,used:0.5},{n:'Pegamento y silicón',price:5,units:40,used:1}],
+   waste:8,blade:0.3,pack:0.9,other:0.4,machine:300,life:6000,fixedM:60,piecesM:120,prodMin:25,designMin:60,sales:40,rate:15,
+   channel:'etsy',comm:9.5,fee:0.45,margin:40,wmargin:20,round:true,tax:0,qty:10,compPrice:16,goal:2000,cur:'$'},
+ svg:{name:'Plantilla SVG para Cricut',mats:[],waste:0,blade:0,pack:0,other:0,machine:0,life:0,fixedM:60,piecesM:150,
+   prodMin:0,designMin:180,sales:150,rate:15,channel:'etsy',comm:9.5,fee:0.45,margin:70,wmargin:40,round:true,tax:0,qty:100,compPrice:'',goal:2000,cur:'$'},
+ topper:{name:'Topper de pastel personalizado',mats:[
+   {n:'Cartulina glitter',price:10,units:20,used:1},{n:'Palitos de madera',price:4,units:50,used:1},
+   {n:'Pegamento',price:5,units:40,used:0.5},{n:'Impresión y tinta',price:18,units:60,used:0.5}],
+   waste:8,blade:0.25,pack:0.6,other:0.2,machine:300,life:6000,fixedM:60,piecesM:120,prodMin:12,designMin:40,sales:30,rate:15,
+   channel:'etsy',comm:9.5,fee:0.45,margin:40,wmargin:20,round:true,tax:0,qty:12,compPrice:'',goal:2000,cur:'$'}
+};
+const IDS=['name','cur','waste','blade','pack','other','machine','life','fixedM','piecesM','prodMin','designMin','sales','rate','channel','comm','fee','margin','wmargin','tax','qty','compPrice','goal'];
+let mats=[];
+
+function getState(){
+  const s={mats:mats.map(m=>({...m}))};
+  IDS.forEach(id=>s[id]=$(id).value);
+  s.round=$('round').checked;
+  return s;
+}
+function setState(s){
+  mats=(s.mats||[]).map(m=>({n:m.n||'',price:m.price,units:m.units,used:m.used}));
+  IDS.forEach(id=>{ if(s[id]!==undefined) $(id).value=s[id]; });
+  $('round').checked=!!s.round;
+  $('marginR').value=$('margin').value;
+  renderMats(); calc();
+}
+
+const num=id=>{const v=parseFloat($(id).value);return isFinite(v)&&v>0?v:0;};
+const n0=v=>{const x=parseFloat(v);return isFinite(x)&&x>0?x:0;};
+function money(x){
+  const c=$('cur').value;
+  const s=Math.abs(x).toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});
+  return (x<0?'−':'')+c+s;
+}
+const pct=x=>(x*100).toLocaleString('es-MX',{maximumFractionDigits:1})+'%';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function renderMats(){
+  $('mats').innerHTML=mats.length?mats.map((m,i)=>`
+   <div class="mat-row">
+     <div class="f"><label for="mn${i}">Material</label><div class="in"><input id="mn${i}" type="text" data-i="${i}" data-k="n" value="${esc(m.n||'')}" placeholder="Ej. cartulina"></div></div>
+     <div class="f"><label for="mp${i}">Precio del paquete</label><div class="in"><span class="sym"></span><input id="mp${i}" type="number" inputmode="decimal" step="any" min="0" data-i="${i}" data-k="price" value="${m.price??''}"></div></div>
+     <div class="f"><label for="mu${i}">Piezas en el paquete</label><div class="in"><input id="mu${i}" type="number" inputmode="decimal" step="any" min="0" data-i="${i}" data-k="units" value="${m.units??''}"></div></div>
+     <div class="f"><label for="mq${i}">Usas por pieza</label><div class="in"><input id="mq${i}" type="number" inputmode="decimal" step="any" min="0" data-i="${i}" data-k="used" value="${m.used??''}"></div></div>
+     <div class="cost"><small>Costo</small><span id="mc${i}">—</span></div>
+     <button class="rm" type="button" data-rm="${i}" aria-label="Quitar material">×</button>
+   </div>`).join(''):'<p class="hint">Sin materiales. Es lo normal en un archivo digital. Agrega uno si lo necesitas.</p>';
+  syncSym();
+}
+function syncSym(){const c=$('cur').value;document.querySelectorAll('.sym').forEach(e=>e.textContent=c);}
+
+let C={};
+function calc(){
+  const waste=num('waste')/100;
+  let matBase=0;
+  mats.forEach((m,i)=>{
+    const u=n0(m.units),p=n0(m.price),q=n0(m.used);
+    const c=u>0?p/u*q:0; matBase+=c;
+    const el=$('mc'+i); if(el) el.textContent=money(c*(1+waste));
+  });
+  const materials=matBase*(1+waste);
+  const rate=num('rate');
+  const labor=num('prodMin')/60*rate;
+  const design=num('designMin')/60*rate/Math.max(num('sales'),1);
+  const equip=num('life')>0?num('machine')/num('life'):0;
+  const fixedShare=num('piecesM')>0?num('fixedM')/num('piecesM'):0;
+  const extras=num('blade')+num('pack')+num('other')+equip+fixedShare;
+  const cost=materials+labor+design+extras;
+  const comm=num('comm')/100, fee=num('fee'), margin=num('margin')/100, wm=num('wmargin')/100;
+  const den=1-comm-margin;
+  const valid=den>0.01;
+  let raw=valid?(cost+fee)/den:NaN;
+  const rnd=v=>{ if(!$('round').checked||!isFinite(v)) return Math.round(v*100)/100; let p=Math.floor(v)+0.99; if(p<v) p+=1; return p; };
+  const price=valid?rnd(raw):NaN;
+  const wholesale=(1-wm)>0.01?rnd(cost/(1-wm)):NaN;
+  const profit=valid?price*(1-comm)-fee-cost:NaN;
+  const take=valid?profit+labor+design:NaN;
+  const hours=num('prodMin')/60+num('designMin')/60/Math.max(num('sales'),1);
+  C={materials,labor,design,extras,cost,comm,fee,margin,den,valid,raw,price,wholesale,profit,take,hours,rnd,equip,fixedShare};
+
+  $('matTotal').innerHTML=`Materiales por pieza: <b>${money(materials)}</b>`;
+  $('rName').textContent=$('name').value||'Tu producto';
+  const dash='—';
+  $('rPrice').textContent=valid?money(price):dash;
+  const tax=num('tax')/100;
+  $('rSub').textContent=valid?(tax>0?`Con ${pct(tax)} de impuesto: ${money(price*(1+tax))}. Por pieza, con comisión y ganancia incluidas.`:'Por pieza, con comisión y ganancia incluidas.'):'';
+  const al=$('rAlert');
+  if(!valid){al.hidden=false;al.className='alert bad';al.textContent='La comisión más la ganancia suman 100% o más. Baja la ganancia o cambia de canal: con esos porcentajes ningún precio alcanza.';}
+  else if(cost<=0){al.hidden=false;al.className='alert warn';al.textContent='Aún no hay costos. Llena materiales o tiempo para ver un precio realista.';}
+  else if(margin>0.6 && matBase>0){al.hidden=false;al.className='alert warn';al.textContent='Una ganancia mayor a 60% es difícil de sostener en un producto físico. Revisa que tus costos estén completos.';}
+  else al.hidden=true;
+
+  $('mWhole').textContent=isFinite(wholesale)&&cost>0?money(wholesale):dash;
+  $('mProfit').textContent=valid?money(profit):dash;
+  $('mTake').textContent=valid?money(take):dash;
+  $('mCost').textContent=money(cost);
+  $('mHour').textContent=valid&&hours>0&&num('prodMin')>0?money(take/hours)+'/h':dash;
+  const goal=num('goal');
+  $('mMonth').textContent=valid&&take>0&&goal>0?Math.ceil(goal/take).toLocaleString('es-MX'):dash;
+
+  // desglose
+  const segs=valid?[
+    {k:'Materiales',v:materials,c:'--seg-mat'},
+    {k:'Tu tiempo',v:labor+design,c:'--seg-time'},
+    {k:'Gastos y máquina',v:extras,c:'--seg-over'},
+    {k:'Comisiones y cargos',v:price*comm+fee,c:'--seg-fee'},
+    {k:'Tu ganancia',v:Math.max(profit,0),c:'--seg-profit'}
+  ]:[];
+  const tot=segs.reduce((a,s)=>a+s.v,0)||1;
+  $('bar').innerHTML=segs.map(s=>`<i style="width:${(s.v/tot*100).toFixed(2)}%;background:var(${s.c})" title="${s.k}"></i>`).join('');
+  $('legend').innerHTML=segs.map(s=>`<div><span class="dot" style="background:var(${s.c})"></span><span class="nm">${s.k}</span><span class="vl">${money(s.v)}</span><span class="pc">${(s.v/tot*100).toFixed(0)}%</span></div>`).join('');
+
+  // escenarios
+  const q=Math.max(Math.round(num('qty')),0);
+  let h='';
+  if(valid&&q>0){
+    const total=price*q, orderFee=fee*q; // cada pieza como venta separada
+    const gp=profit*q, tk=take*q;
+    h+=`<div><span>Si vendes ${q.toLocaleString('es-MX')} piezas</span><b>${money(total)}</b></div>`;
+    h+=`<div><span>Ganancia total</span><b>${money(gp)}</b></div>`;
+    h+=`<div><span>Te llevas (ganancia + tu pago)</span><b>${money(tk)}</b></div>`;
+  }
+  const cp=parseFloat($('compPrice').value);
+  if(valid&&isFinite(cp)&&cp>0){
+    const pr=cp*(1-comm)-fee-cost;
+    const mg=pr/cp;
+    const tk2=pr+labor+design;
+    h+=`<div style="border-top:1px solid var(--mat-line);padding-top:8px;margin-top:4px"><span>Vendiendo a ${money(cp)}, ganancia por pieza</span><b>${money(pr)}</b></div>`;
+    h+=`<div><span>Margen real a ese precio</span><b>${pct(mg)}</b></div>`;
+    if(hours>0) h+=`<div><span>Lo que ganas por hora</span><b>${money(tk2/hours)}/h</b></div>`;
+    const cls=pr<0?'bad':(mg<margin*0.5?'warn':'good');
+    const msg=pr<0?'A ese precio pierdes dinero en cada pieza.':(mg<margin*0.5?'A ese precio ganas menos de la mitad de lo que querías.':'A ese precio todavía te queda ganancia sana.');
+    h+=`<div class="alert ${cls}" style="margin-top:6px">${msg}</div>`;
+  }
+  $('scen').innerHTML=h; $('scen').hidden=!h;
+
+  // tabla por cantidad
+  const tiers=[[1,0],[6,0],[12,5],[25,8],[50,12],[100,15]];
+  $('qtyBody').innerHTML=valid?tiers.map(([n,d])=>{
+    let u=Math.min(price,Math.max(price*(1-d/100),isFinite(wholesale)?wholesale:0));
+    u=rnd(u); if(u>price) u=price;
+    const totalO=u*n;
+    const pr=totalO*(1-comm)-fee-cost*n;
+    const mg=totalO>0?pr/totalO:0;
+    return `<tr><td>${n} pzas</td><td>${d?'−'+d+'%':'—'}</td><td>${money(u)}</td><td>${money(totalO)}</td><td class="${pr<0?'neg':'pos'}">${money(pr)}</td><td class="${pr<0?'neg':''}">${pct(mg)}</td></tr>`;
+  }).join(''):'<tr><td colspan="6">Corrige los porcentajes para ver la tabla.</td></tr>';
+
+  // fórmula viva
+  $('liveFormula').textContent=valid?`= ( ${money(cost)} + ${money(fee)} ) ÷ ( 1 − ${pct(comm)} − ${pct(margin)} ) = ${money(raw)}${$('round').checked?' → '+money(price):''}`:'';
+
+  // dock
+  $('dPrice').textContent=valid?money(price):dash;
+  $('dProfit').textContent=valid?money(profit):dash;
+  $('dTake').textContent=valid?money(take):dash;
+
+  syncPicks();
+  persist();
+}
+
+function summary(){
+  if(!C.valid) return 'Corrige la comisión y la ganancia: suman 100% o más.';
+  const L=[];
+  L.push(`${$('name').value||'Producto'}`);
+  L.push(`Precio sugerido: ${money(C.price)}`);
+  L.push(`Mayoreo: ${isFinite(C.wholesale)?money(C.wholesale):'—'}`);
+  L.push(`Costo real por pieza: ${money(C.cost)}`);
+  L.push(`  Materiales: ${money(C.materials)}`);
+  L.push(`  Tu tiempo: ${money(C.labor+C.design)}`);
+  L.push(`  Gastos y máquina: ${money(C.extras)}`);
+  L.push(`Comisiones y cargos: ${money(C.price*C.comm+C.fee)}`);
+  L.push(`Ganancia por pieza: ${money(C.profit)} (${pct(C.profit/C.price)} del precio)`);
+  L.push(`Te llevas por pieza: ${money(C.take)}`);
+  return L.join('\n');
+}
+
+/* Guardado local */
+const KEY_CUR='kit-papeleria-actual', KEY_SAVED='kit-papeleria-guardados';
+let persistT;
+function persist(){clearTimeout(persistT);persistT=setTimeout(()=>{try{localStorage.setItem(KEY_CUR,JSON.stringify(getState()));}catch(e){}},300);}
+function readSaved(){try{return JSON.parse(localStorage.getItem(KEY_SAVED)||'[]')||[];}catch(e){return [];}}
+function writeSaved(a){try{localStorage.setItem(KEY_SAVED,JSON.stringify(a));return true;}catch(e){return false;}}
+function renderSaved(){
+  const a=readSaved();
+  $('savedWrap').hidden=!a.length;
+  $('saved').innerHTML=a.map((p,i)=>`<span class="chip"><button type="button" data-load="${i}" style="all:unset;cursor:pointer">${esc(p.state.name||'Sin nombre')}</button><button class="x" type="button" data-del="${i}" aria-label="Borrar ${esc(p.state.name||'producto')}">×</button></span>`).join('');
+}
+
+/* Eventos */
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset&&t.dataset.i!==undefined){
+    const m=mats[+t.dataset.i]; if(m){m[t.dataset.k]=t.dataset.k==='n'?t.value:t.value; calc();}
+    return;
+  }
+  if(t.id==='marginR'){$('margin').value=t.value;calc();return;}
+  if(t.id==='margin'){$('marginR').value=t.value;calc();return;}
+  if(t.id==='channel'){
+    const c=CHANNELS[t.value]; if(c){$('comm').value=c.comm;$('fee').value=c.fee;}
+    calc();return;
+  }
+  if(t.id==='comm'||t.id==='fee'){
+    const c=CHANNELS[$('channel').value];
+    if(c&&(parseFloat($('comm').value)!==c.comm||parseFloat($('fee').value)!==c.fee)) $('channel').value='custom';
+    calc();return;
+  }
+  if(t.id==='ptype'){ if(t.value){const [m,w]=({fis:'42|20',may:'20|12',dig:'70|40',eve:'42|20',kit:'38|18'}[t.value]||'').split('|');$('margin').value=m;$('marginR').value=m;$('wmargin').value=w;calc();} return; }
+  if(t.id==='cur'){syncSym();calc();return;}
+  if(IDS.includes(t.id)||t.id==='round') calc();
+});
+document.addEventListener('change',e=>{ if(e.target.id==='round'||e.target.id==='channel'||e.target.id==='cur') calc(); });
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.preset){
+    const p=PRESETS[b.dataset.preset];
+    setState(JSON.parse(JSON.stringify(p)));
+    document.querySelectorAll('[data-preset]').forEach(x=>x.classList.toggle('active',x===b));
+  } else if(b.dataset.rm!==undefined){
+    mats.splice(+b.dataset.rm,1); renderMats(); calc();
+  } else if(b.dataset.pick!==undefined){
+    const el=$(b.dataset.for); el.value=b.dataset.pick; el.dispatchEvent(new Event('input',{bubbles:true}));
+  } else if(b.id==='addMat'){
+    mats.push({n:'',price:'',units:'',used:''}); renderMats(); calc();
+    const last=$('mn'+(mats.length-1)); if(last) last.focus();
+  } else if(b.dataset.load!==undefined){
+    const a=readSaved()[+b.dataset.load]; if(a) setState(a.state);
+    document.querySelectorAll('[data-preset]').forEach(x=>x.classList.remove('active'));
+  } else if(b.dataset.del!==undefined){
+    const a=readSaved(); a.splice(+b.dataset.del,1); writeSaved(a); renderSaved();
+  } else if(b.id==='saveBtn'){
+    const a=readSaved(); const st=getState(); const nm=st.name||'Sin nombre';
+    const i=a.findIndex(p=>(p.state.name||'')===(st.name||''));
+    if(i>=0) a[i]={state:st}; else a.push({state:st});
+    const ok=writeSaved(a); renderSaved();
+    const m=$('saveMsg'); m.hidden=false;
+    m.textContent=ok?`Guardado: ${nm}. Aparece arriba en “Mis productos guardados”.`:'Este navegador no deja guardar. Copia tu resumen para no perderlo.';
+  } else if(b.id==='copyBtn'){
+    const txt=summary(); const box=$('summaryBox');
+    const fallback=()=>{box.hidden=false;box.value=txt;box.focus();box.select();$('saveMsg').hidden=false;$('saveMsg').textContent='Selecciona el texto y cópialo con Ctrl+C o mantén presionado.';};
+    try{
+      navigator.clipboard.writeText(txt).then(()=>{$('saveMsg').hidden=false;$('saveMsg').textContent='Resumen copiado.';box.hidden=true;},fallback);
+    }catch(err){fallback();}
+  }
+});
+
+/* Selectores con botones (no desplegables) */
+const PICKS={
+  cur:[['$','$ (USD, MXN, COP…)'],['US$','US$ Dólar'],['MX$','MX$ Peso mexicano'],['COL$','COL$ Peso colombiano'],['ARS$','ARS$ Peso argentino'],['CLP$','CLP$ Peso chileno'],['€','€ Euro'],['S/','S/ Sol'],['Q','Q Quetzal'],['L','L Lempira'],['₡','₡ Colón']],
+  channel:[['custom','Personalizado'],['etsy','Etsy','9.5% + $0.45'],['etsyads','Etsy + anuncios externos','24.5% + $0.45'],['web','Tienda web','2.9% + $0.30'],['direct','Venta directa / redes','sin comisión'],['local','En persona / mercado','sin comisión']],
+  ptype:[['fis','Papercraft físico','35–50%'],['may','Recuerdos por mayoreo','15–25%'],['dig','Archivo digital','60–80%'],['eve','Papelería para eventos','35–50%'],['kit','Kit con materiales','30–45%']]
+};
+function syncPicks(){
+  document.querySelectorAll('.picks').forEach(box=>{
+    const id=box.dataset.for, cur=$(id).value;
+    if(!box.dataset.ready){
+      box.innerHTML=PICKS[id].map(o=>`<button type="button" class="chip" data-pick="${esc(o[0])}" data-for="${id}">${esc(o[1])}${o[2]?` <small>${esc(o[2])}</small>`:''}</button>`).join('');
+      box.dataset.ready='1';
+    }
+    box.querySelectorAll('.chip').forEach(b=>{const on=b.dataset.pick===cur;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on);});
+  });
+}
+
+/* Inicio */
+renderSaved();
+let start=null;
+try{start=JSON.parse(localStorage.getItem(KEY_CUR)||'null');}catch(e){}
+if(start&&typeof start==='object'&&start.mats){ setState(start); }
+else { setState(JSON.parse(JSON.stringify(PRESETS.caja))); const b=document.querySelector('[data-preset="caja"]'); if(b) b.classList.add('active'); }
+})();
+</script>
+<script>
+/* Pestañas, hojas guardadas */
+(function(){
+  const g=document.getElementById('view-guia'), c=document.getElementById('view-calc');
+  function show(v){
+    const calc=v==='calc';
+    g.hidden=calc; c.hidden=!calc;
+    document.body.classList.toggle('calc-on',calc);
+    document.getElementById('tab-guia').setAttribute('aria-selected',String(!calc));
+    document.getElementById('tab-calc').setAttribute('aria-selected',String(calc));
+    window.scrollTo(0,0);
+  }
+  document.addEventListener('click',function(e){
+    const b=e.target.closest('[data-view],[data-goto]'); if(!b) return;
+    show(b.dataset.view||b.dataset.goto);
+  });
+  if(location.hash==='#calculador'||location.hash==='#calculadora') show('calc');
+  const KEY='kit-papeleria-hojas';
+  let store={};
+  try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(err){}
+  const fields=[].slice.call(document.querySelectorAll('[data-k]'));
+  fields.forEach(function(el){
+    const v=store[el.dataset.k];
+    if(v!==undefined){ if(el.type==='checkbox') el.checked=!!v; else el.value=v; }
+  });
+  function save(){ try{localStorage.setItem(KEY,JSON.stringify(store));}catch(err){} }
+  document.addEventListener('input',function(e){
+    const el=e.target; if(!el.dataset||!el.dataset.k) return;
+    store[el.dataset.k]=el.type==='checkbox'?el.checked:el.value; save();
+  });
+  document.addEventListener('change',function(e){
+    const el=e.target; if(!el.dataset||!el.dataset.k||el.type!=='checkbox') return;
+    store[el.dataset.k]=el.checked; save();
+  });
+  const clr=document.getElementById('clearSheets'), msg=document.getElementById('clearMsg');
+  let armed=false;
+  clr.addEventListener('click',function(){
+    if(!armed){ armed=true; clr.textContent='Toca otra vez para confirmar'; setTimeout(function(){armed=false;clr.textContent='Borrar mis respuestas de las hojas';},4000); return; }
+    fields.forEach(function(el){ if(el.type==='checkbox') el.checked=false; else el.value=''; });
+    store={}; save(); armed=false; clr.textContent='Borrar mis respuestas de las hojas';
+    msg.hidden=false; msg.textContent='Listo. Tus hojas están en blanco.';
+  });
+})();
+</script>
+</body>
+</html>
